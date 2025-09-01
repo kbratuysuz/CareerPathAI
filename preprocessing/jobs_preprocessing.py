@@ -2,6 +2,7 @@ import pandas as pd
 import re
 import string
 import os
+import unicodedata
 
 EXCEL_PATH = "dataset/job-postings/jobs_kariyernet.xlsx"
 df = pd.read_excel(EXCEL_PATH)
@@ -13,7 +14,16 @@ def clean_text(text):
     if pd.isna(text):
         return ""
     text = str(text).lower()
-    text = text.translate(str.maketrans("", "", string.punctuation))
+
+    text = unicodedata.normalize("NFKC", text)
+    text = "".join(
+        ch if unicodedata.category(ch).startswith(("L", "N")) or ch.isspace() else " "
+        for ch in text
+    )
+
+    # text = text.replace("•", " ").replace("·", " ").replace("“", " ").replace("”", " ").replace("-", " ")  
+    # text = text.translate(str.maketrans("", "", string.punctuation))
+
     text = re.sub(r"\s+", " ", text).strip()
     return text
 
