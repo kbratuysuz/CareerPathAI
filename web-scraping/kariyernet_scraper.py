@@ -7,11 +7,43 @@ import undetected_chromedriver as uc
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from rapidfuzz import fuzz
 
 
-CSV_PATH = r"C:/Users/kaksu/Desktop/AI/Proje/web-scraping/kariyernet_is_ilanlari_URL_listesi.csv"
-OUTPUT_EXCEL_PATH = r"C:/Users/kaksu/Desktop/AI/Proje/web-scraping/kariyernet_is_ilanlari_detayli.xlsx"
-ERROR_LOG_PATH = r"C:/Users/kaksu/Desktop/AI/Proje/web-scraping/hatali_kariyernet_linkler.csv"
+CSV_PATH = r"C:/Users/kaksu/source/repos/CareerPathAI/web-scraping/kariyernet_is_ilanlari_URL_listesi.csv"
+OUTPUT_EXCEL_PATH = r"C:/Users/kaksu/source/repos/CareerPathAI/web-scraping/kariyernet_is_ilanlari_detayli.xlsx"
+ERROR_LOG_PATH = r"C:/Users/kaksu/source/repos/CareerPathAI/web-scraping/hatali_kariyernet_linkler.csv"
+
+TEKNOLOJI_KEYWORDS = [
+    "teknoloji", "bilgi teknolojileri", "bt", "it", "ict",
+    "yazılım", "programcı", "kodlama", "uygulama", "app",
+
+    "developer", "engineer", "mühendis", "architect", "consultant",
+    "backend", "frontend", "fullstack", "devops", "qa", "tester",
+    "automation", "scrum", "agile", "ci/cd",
+
+    "mobil", "mobile", "android", "ios", "swift", "kotlin", "flutter", "react native",
+
+    "data", "big data", "data scientist", "data analyst", "data engineer",
+    "ml", "machine learning", "deep learning", "ai", "artificial intelligence",
+    "nlp", "computer vision", "business intelligence", "bi", "etl",
+
+    "cloud", "aws", "azure", "gcp", "kubernetes", "docker",
+    "linux", "windows server", "system", "sysadmin", "infrastructure",
+    "network", "network engineer", "voip", "telekom", "telecommunication",
+    "database", "sql", "nosql", "postgresql", "mysql", "oracle",
+
+    "siber", "cybersecurity", "security", "pentest", "penetration test",
+    "ethical hacker", "forensic", "soc analyst", "information security",
+    "zero trust", "firewall", "ids", "ips", "encryption",
+
+    "javascript", "typescript", "nodejs", "react", "vue", "angular",
+    "php", "laravel", "django", "flask", "spring boot", "dotnet", "c#",
+    "golang", "python", "java", "c++", "rust",
+
+    "sap", "erp", "crm", "rpa", "blockchain", "web3", "metaverse",
+    "game developer", "unity", "unreal engine", "vr", "ar"
+]
 
 def make_driver():
     options = uc.ChromeOptions()
@@ -25,7 +57,7 @@ def make_driver():
         "AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/124.0.0.0 Safari/537.36"
     )
-    driver = uc.Chrome(options=options, version_main=138)  # Chrome 138 için driver
+    driver = uc.Chrome(options=options)
     driver.set_page_load_timeout(30)
     return driver
 
@@ -109,6 +141,19 @@ def fetch_job_details(driver, url, first_run=False):
     except Exception as e:
         return None, f"Hata/Selenium: {e}"
 
+def is_technology_job(job_data, threshold=70):
+    """Pozisyon Başlığı içinde teknoloji anahtar kelimeleri ile yakın eşleşme kontrolü"""
+    title = job_data.get("Pozisyon Başlığı", "").lower()
+    if not title:
+        return False
+
+    # Anahtar kelimelerle yakınlık skorlarını hesapla
+    for keyword in TEKNOLOJI_KEYWORDS:
+        score = fuzz.partial_ratio(keyword.lower(), title)
+        if score >= threshold:  # eşik değerini %70 seçtik
+            return True
+    return False
+
 def append_job_to_excel(row_dict, excel_path):
     df = pd.DataFrame([row_dict])
     if not os.path.exists(excel_path):
@@ -135,13 +180,16 @@ def process_job_urls():
 
             data, status = fetch_job_details(driver, url, first_run=(idx == 0))
             if status == 200 and data:
-                append_job_to_excel(data, OUTPUT_EXCEL_PATH)
-                print(f"✅ Eklendi: {url}")
+                if is_technology_job(data):
+                    append_job_to_excel(data, OUTPUT_EXCEL_PATH)
+                    print(f"✅ Teknoloji ilanı eklendi: {url}")
+                else:
+                    print(f"⏭️ Teknoloji ile ilgili değil, atlandı: {url}")
             else:
                 append_error_to_csv({"Durum Kodu": status, "URL": url}, ERROR_LOG_PATH)
                 print(f"⚠️ Hata: {url} ({status})")
 
-            time.sleep(random.uniform(0.5, 1.2))  # Daha kısa bekleme
+            time.sleep(random.uniform(0.5, 1.2))
     finally:
         driver.quit()
         print(f"🎉 Bitti: {OUTPUT_EXCEL_PATH} | Hata Logu: {ERROR_LOG_PATH}")
