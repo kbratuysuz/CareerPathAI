@@ -1,7 +1,5 @@
 import pandas as pd
 import re
-import string
-import os
 import unicodedata
 
 EXCEL_PATH = "dataset/job-postings/jobs_kariyernet.xlsx"
