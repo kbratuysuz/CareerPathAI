@@ -1,2 +1,3 @@
 .venv/
 .venv/*
+skill_mismatch_finetune/outputs/*
