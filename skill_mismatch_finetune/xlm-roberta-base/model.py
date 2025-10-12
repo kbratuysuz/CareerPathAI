@@ -1,40 +1,14 @@
-# job-posting-dataset.json + gazetteer çıktısını birleştirir
 import json
 import pandas as pd
-
-with open("dataset/job_posting_dataset.json", "r", encoding="utf-8") as f:
-    jobs = {j["job_id"]: j["job_description_clean"] for j in json.load(f)}
-
-with open("dataset/weak_labels.json", "r", encoding="utf-8") as f:
-    labels = {j["job_id"]: [s["skill"] for s in j["skills"]] for j in json.load(f)}
-
-data = [{"job_id": jid, "text": jobs[jid], "labels": labels.get(jid, [])} for jid in jobs]
-df = pd.DataFrame(data)
-
-# unique skill list
-all_skills = sorted({s for v in labels.values() for s in v})
-print(len(all_skills), "unique skills")
-
-# encode labels step
 from sklearn.preprocessing import MultiLabelBinarizer
-
-mlb = MultiLabelBinarizer(classes=all_skills)
-y = mlb.fit_transform(df["labels"])
-
-# model selection step
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
-# model_name = "dbmdz/bert-base-turkish-cased"
-model_name = "xlm-roberta-base"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForSequenceClassification.from_pretrained(
-    model_name,
-    num_labels=len(all_skills),
-    problem_type="multi_label_classification"
-)
-
-# preparing dataset step
 import torch
 from torch.utils.data import Dataset
+from transformers import Trainer, TrainingArguments
+import numpy as np, random
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+
 
 class JobPostingDataset(Dataset):
     def __init__(self, texts, labels, tokenizer, max_len=512):
@@ -57,11 +31,30 @@ class JobPostingDataset(Dataset):
         item = {k: v.squeeze(0) for k, v in enc.items()}
         item["labels"] = torch.tensor(self.labels[idx], dtype=torch.float)
         return item
+    
+with open("dataset/job_posting_dataset.json", "r", encoding="utf-8") as f:
+    jobs = {j["job_id"]: j["job_description_clean"] for j in json.load(f)}
 
-# fine-tuning step
-from transformers import Trainer, TrainingArguments
-import numpy as np, random
-from sklearn.model_selection import train_test_split
+with open("dataset/weak_labels.json", "r", encoding="utf-8") as f:
+    labels = {j["job_id"]: [s["skill"] for s in j["skills"]] for j in json.load(f)}
+
+data = [{"job_id": jid, "text": jobs[jid], "labels": labels.get(jid, [])} for jid in jobs]
+df = pd.DataFrame(data)
+
+all_skills = sorted({s for v in labels.values() for s in v})
+print(len(all_skills), "unique skills")
+
+mlb = MultiLabelBinarizer(classes=all_skills)
+y = mlb.fit_transform(df["labels"])
+
+# model_name = "dbmdz/bert-base-turkish-cased"
+model_name = "xlm-roberta-base"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForSequenceClassification.from_pretrained(
+    model_name,
+    num_labels=len(all_skills),
+    problem_type="multi_label_classification"
+)
 
 seed = 42
 torch.manual_seed(seed)
@@ -98,28 +91,32 @@ trainer = Trainer(
 
 trainer.train()
 
-# evaluate step
 preds = trainer.predict(train_dataset).predictions
 sigmoid = 1 / (1 + np.exp(-preds))
 pred_labels = (sigmoid >= 0.1).astype(int)
 
-# Örnek: İlan bazında skill tahmini
+output = []
+
 for idx in range(10):
     job_id = df.loc[idx, "job_id"]
     skills = mlb.classes_
     probs = sigmoid[idx]
 
-    # tahmin edilen skiller
     predicted_skills = mlb.inverse_transform(pred_labels[[idx]])[0]
+    skill_scores = {
+        skills[i]: float(probs[i]) 
+        for i in np.where(pred_labels[idx] == 1)[0]
+    }
 
-    # sadece tahmin edilen skillerin skorlarını al
-    skill_scores = {skills[i]: round(probs[i], 3) for i in np.where(pred_labels[idx] == 1)[0]}
+    output.append({
+        "job_id": job_id,
+        "sigmoid_scores": skill_scores
+    })
 
-    print(f"\n🧩 Job ID: {job_id}")
-    print(f"🎯 Predicted Skills: {predicted_skills}")
-    print(f"📊 Sigmoid Scores: {skill_scores}")
+with open("prediction-results.json", "w", encoding="utf-8") as f: json.dump(output, f, ensure_ascii=False, indent=2)
 
-import matplotlib.pyplot as plt
+print("✅ Tahmin sonuçları 'predictions.json' dosyasına kaydedildi.")
+
 
 plt.hist(sigmoid.flatten(), bins=50)
 plt.title("Sigmoid Probability Distribution")

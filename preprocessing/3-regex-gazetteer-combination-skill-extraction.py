@@ -1,27 +1,20 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import json
 import re
 import argparse
 from pathlib import Path
 
-# ---------- 1) Technical Skill Synonyms ----------
 TECHNICAL_SYNONYMS = {
-    # Programlama Dilleri
     "java": ["java"],
     "javascript": ["javascript", "js"],
     "typescript": ["typescript", "ts"],
     "python": ["python", "py"],
     "c#": ["c#", "c sharp", "csharp"],
     "c++": ["c++", "cpp"],
-    "c": [r"\bc\b", "c language"],
+    "c": [r"\bc\b", "c language", "c programlama"],
 
-    # .NET
     ".net": [".net", "dotnet", "net framework", "asp.net", "aspnet"],
     ".net core": [".net core", "dotnet core", "net core"],
 
-    # Frameworkler
     "spring": ["spring", "spring boot"],
     "hibernate": ["hibernate"],
     "react": ["react", "reactjs", "react.js"],
@@ -34,9 +27,8 @@ TECHNICAL_SYNONYMS = {
     "fastapi": ["fastapi"],
     "laravel": ["laravel"],
     "symfony": ["symfony"],
-    "flutter": ["flutter"],
+    "flutter": ["flutter","flutterflow"],
 
-    # Veri & Database
     "data": ["veri", "büyük veri", "big data", "veri analizi", "data analysis"],
     "database": ["veritabanı", "database", "db"],
     "sql": [r"(?<!no)sql", "sql sorgulama"],
@@ -51,16 +43,13 @@ TECHNICAL_SYNONYMS = {
     "network": ["network", "ağ yönetimi", "ağ teknolojileri"],
     "erp": ["erp", "erp sistemleri"],
 
-    # Güvenlik
     "security": ["güvenlik", "siber güvenlik", "information security"],
 
-    # Test
     "testing": ["test", "yazılım testi", "test süreçleri"],
     "unit testing": ["unit testing", "unit test", "unittest", "unit-test"],
     "selenium": ["selenium"],
     "jmeter": ["jmeter"],
 
-    # DevOps & Cloud
     "docker": ["docker"],
     "kubernetes": ["kubernetes", "k8s"],
     "git": ["git"],
@@ -72,11 +61,9 @@ TECHNICAL_SYNONYMS = {
     "gcp": ["gcp", "google cloud"],
     "cloud": ["cloud", "bulut"],
 
-    # Raporlama
     "reporting": ["raporlama", "reporting"]
 }
 
-# ---------- 2) Soft & Business Skills Synonyms ----------
 SOFT_BUSINESS_SYNONYMS = {
     "communication": ["iletişim", "iletişim becerileri", "takım içi iletişim"],
     "analytical thinking": ["analitik", "analitik düşünme", "analiz yapma"],
@@ -92,10 +79,8 @@ SOFT_BUSINESS_SYNONYMS = {
     "organization": ["organizasyon", "planlama", "yönetim"]
 }
 
-# Combine both
 ALL_SYNONYMS = {**TECHNICAL_SYNONYMS, **SOFT_BUSINESS_SYNONYMS}
 
-# ---------- 3) Regex Yardımcıları ----------
 def _build_pattern(variant: str) -> re.Pattern:
     v = variant.lower()
     if variant == r"(?<!no)sql":
@@ -120,7 +105,6 @@ def compile_patterns(synonyms: dict) -> dict:
 
 COMPILED = compile_patterns(ALL_SYNONYMS)
 
-# ---------- 4) Çıkarım Fonksiyonu ----------
 def extract_skills(text: str, compiled=COMPILED, topk: int = 30):
     t = (text or "").lower()
     found = {}
@@ -129,12 +113,16 @@ def extract_skills(text: str, compiled=COMPILED, topk: int = 30):
         for p in patterns:
             if p.search(t):
                 hit += 1
+
         if hit > 0:
-            found[canon] = round(1.0 + min(hit, 3) * 0.02, 3)
+            if canon in TECHNICAL_SYNONYMS:
+                found[canon] = round(1.0 + min(hit, 3) * 0.02, 3)
+            elif canon in SOFT_BUSINESS_SYNONYMS:
+                found[canon] = 1.0
+
     items = sorted(found.items(), key=lambda x: (-x[1], x[0]))
     return [{"skill": k, "score": v} for k, v in items[:topk]]
 
-# ---------- 5) I/O ----------
 def run(input_path: Path, output_path: Path, topk: int = 30):
     data = json.loads(Path(input_path).read_text(encoding="utf-8"))
     out = []
@@ -146,11 +134,10 @@ def run(input_path: Path, output_path: Path, topk: int = 30):
     output_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"{len(out)} iş ilanı işlendi. Çıktı: {output_path}")
 
-# ---------- 6) CLI ----------
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--input", type=Path, default="dataset/job-postings/job-posting-dataset.json")
-    ap.add_argument("--output", type=Path, default="dataset/job-postings/job-posting-skills.json")
+    ap.add_argument("--input", type=Path, default="../dataset/job-postings/job-posting-dataset-all.json")
+    ap.add_argument("--output", type=Path, default="../dataset/job-postings/job-skills-all.json")
     ap.add_argument("--topk", type=int, default=30)
     args = ap.parse_args()
     run(args.input, args.output, args.topk)

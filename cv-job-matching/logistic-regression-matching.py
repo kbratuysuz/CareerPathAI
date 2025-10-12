@@ -129,5 +129,49 @@ else:
         print(f"  - {row['skill']} (iş ilanı skoru: {row['skill_score']:.2f}, katkı: +{row['score_increase']:.3f})")
 
 
+# --- 10. Kişisel Gelişim / Yol Haritası Katmanı ---
 
+# skill-resources.json dosyasını yükle
+with open("dataset/skill-resources.json", "r", encoding="utf-8") as f:
+    skill_resources = json.load(f)
 
+print("\n🧭 Kişisel Gelişim Yol Haritası:\n")
+
+career_roadmap = []
+
+for _, row in weighted_df.iterrows():
+    skill_name = row["skill"].lower()
+    score_inc = row["score_increase"]
+    # JSON’da skill varsa önerileri al
+    if skill_name in skill_resources:
+        resources = skill_resources[skill_name]["resources"]
+    else:
+        # skill bulunamazsa fallback: Udemy/Coursera araması
+        query = skill_name.replace(" ", "+")
+        resources = [
+            {
+                "name": f"Udemy – {skill_name} kursları",
+                "url": f"https://www.udemy.com/courses/search/?q={query}"
+            },
+            {
+                "name": f"Coursera – {skill_name} eğitimleri",
+                "url": f"https://www.coursera.org/search?query={query}"
+            }
+        ]
+    
+    career_roadmap.append({
+        "skill": skill_name,
+        "potential_increase": round(score_inc, 3),
+        "resources": resources
+    })
+
+# Yol haritasını yazdır
+for entry in career_roadmap:
+    print(f"⭐ {entry['skill']} (+{entry['potential_increase']:.3f})")
+    for res in entry["resources"]:
+        print(f"   🔗 {res['name']}: {res['url']}")
+    print()
+
+# (Opsiyonel) JSON olarak kaydetmek istersen:
+# with open("career-roadmap.json", "w", encoding="utf-8") as f:
+#     json.dump(career_roadmap, f, ensure_ascii=False, indent=2)
