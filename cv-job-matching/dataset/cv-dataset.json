@@ -1,0 +1,2685 @@
+[
+      {
+    "cv_id": "cv_00001",
+    "education": {
+      "fırat üniversitesi": "yazılım mühendisliği"
+    },
+    "experience": [
+      {
+        "role": "it support specialist",
+        "years": 7
+      }
+    ],
+    "skills": [
+      "hardware",
+      "networking",
+      "ticketing systems"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "i̇spanyolca"
+    ],
+    "certificates": [
+      "microsoft support specialist"
+    ],
+    "projects": [
+      "donanım kurulumu"
+    ]
+  },
+  {
+    "cv_id": "cv_00002",
+    "education": {
+      "ufuk üniversitesi": "siber güvenlik"
+    },
+    "experience": [
+      {
+        "role": "bulut mimarisi uzmanı",
+        "years": 5
+      }
+    ],
+    "skills": [
+      "docker",
+      "kubernetes",
+      "ci",
+      "cd",
+      "cloud security"
+    ],
+    "languages": [
+      "i̇ngilizce"
+    ],
+    "certificates": [
+      "aws solutions architect"
+    ],
+    "projects": [
+      "azure ci cd entegrasyonu"
+    ]
+  },
+  {
+    "cv_id": "cv_00003",
+    "education": {
+      "karadeniz teknik üniversitesi": "bilgisayar mühendisliği"
+    },
+    "experience": [
+      {
+        "role": "yapay zeka mühendisi",
+        "years": 1.5
+      }
+    ],
+    "skills": [
+      "pytorch",
+      "hugging face",
+      "docker",
+      "scikit-learn"
+    ],
+    "languages": [],
+    "certificates": [
+      "tensorflow developer"
+    ],
+    "projects": [
+      "öneri sistemi"
+    ]
+  },
+  {
+    "cv_id": "cv_00004",
+    "education": {
+      "batman üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "business intelligence specialist",
+        "years": 1.5
+      }
+    ],
+    "skills": [
+      "tableau",
+      "etl",
+      "data modelling",
+      "excel"
+    ],
+    "languages": [
+      "fransızca"
+    ],
+    "certificates": [
+      "power bi certification"
+    ],
+    "projects": [
+      "etl süreci"
+    ]
+  },
+  {
+    "cv_id": "cv_00005",
+    "education": {
+      "koç üniversitesi": "yapay zeka ve veri bilimi"
+    },
+    "experience": [
+      {
+        "role": "mlops engineer",
+        "years": 2
+      }
+    ],
+    "skills": [
+      "mlflow",
+      "docker",
+      "kubernetes",
+      "aws"
+    ],
+    "languages": [
+      "i̇ngilizce"
+    ],
+    "certificates": [
+      "kubeflow specialist"
+    ],
+    "projects": [
+      "kubeflow pipeline"
+    ]
+  },
+  {
+    "cv_id": "cv_00006",
+    "education": {
+      "harran üniversitesi": "bilgisayar mühendisliği"
+    },
+    "experience": [
+      {
+        "role": "rpa developer",
+        "years": 0.5
+      }
+    ],
+    "skills": [
+      "rpa security",
+      "ocr",
+      "process mining"
+    ],
+    "languages": [
+      "fransızca"
+    ],
+    "certificates": [
+      "blue prism rpa"
+    ],
+    "projects": [
+      "uipath süreç otomasyonu"
+    ]
+  },
+  {
+    "cv_id": "cv_00007",
+    "education": {
+      "uşak üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "bulut mimarisi uzmanı",
+        "years": 0.5
+      }
+    ],
+    "skills": [
+      "aws",
+      "gcp",
+      "azure",
+      "terraform"
+    ],
+    "languages": [
+      "almanca"
+    ],
+    "certificates": [
+      "azure architect"
+    ],
+    "projects": [
+      "aws mikroservis"
+    ]
+  },
+  {
+    "cv_id": "cv_00008",
+    "education": {
+      "kocaeli üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "game developer",
+        "years": 6
+      }
+    ],
+    "skills": [
+      "unity",
+      "c#",
+      "3d modelling",
+      "blender"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "i̇spanyolca"
+    ],
+    "certificates": [
+      "unity developer"
+    ],
+    "projects": [
+      "ar vr proje"
+    ]
+  },
+  {
+    "cv_id": "cv_00009",
+    "education": {
+      "batman üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "mobile developer",
+        "years": 2
+      }
+    ],
+    "skills": [
+      "android",
+      "java",
+      "kotlin",
+      "sqlite"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "almanca"
+    ],
+    "certificates": [
+      "android developer"
+    ],
+    "projects": [
+      "android uygulaması"
+    ]
+  },
+  {
+    "cv_id": "cv_00010",
+    "education": {
+      "i̇zmir ekonomi üniversitesi": "yapay zeka mühendisliği"
+    },
+    "experience": [
+      {
+        "role": "qa engineer",
+        "years": 0.5
+      }
+    ],
+    "skills": [
+      "manual testing",
+      "postman",
+      "api testing"
+    ],
+    "languages": [],
+    "certificates": [
+      "selenium webdriver specialist"
+    ],
+    "projects": [
+      "api testleri"
+    ]
+  },
+  {
+    "cv_id": "cv_00011",
+    "education": {
+      "anadolu üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "yazılım geliştirici",
+        "years": 6
+      }
+    ],
+    "skills": [
+      "c#",
+      ".net core",
+      "angular",
+      "sql server"
+    ],
+    "languages": [
+      "almanca"
+    ],
+    "certificates": [
+      "oracle java se"
+    ],
+    "projects": [
+      "mobil ödeme entegrasyonu"
+    ]
+  },
+  {
+    "cv_id": "cv_00012",
+    "education": {
+      "i̇stanbul üniversitesi": "bilgi teknolojileri"
+    },
+    "experience": [
+      {
+        "role": "blockchain developer",
+        "years": 0.5
+      }
+    ],
+    "skills": [
+      "web3.js",
+      "cryptography",
+      "dapps"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "i̇spanyolca"
+    ],
+    "certificates": [
+      "ethereum developer"
+    ],
+    "projects": [
+      "nft marketplace"
+    ]
+  },
+  {
+    "cv_id": "cv_00013",
+    "education": {
+      "endüstri mühendisliği": "yıldız teknik"
+    },
+    "experience": [
+      {
+        "role": "cloud engineer",
+        "years": 4
+      }
+    ],
+    "skills": [
+      "aws",
+      "azure",
+      "gcp",
+      "docker"
+    ],
+    "languages": [
+      "fransızca"
+    ],
+    "certificates": [
+      "google cloud engineer"
+    ],
+    "projects": [
+      "aws ci cd entegrasyonu"
+    ]
+  },
+  {
+    "cv_id": "cv_00014",
+    "education": {
+      "anadolu üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "ağ uzmanı",
+        "years": 6
+      }
+    ],
+    "skills": [
+      "cisco",
+      "routing",
+      "switching",
+      "tcp",
+      "ip"
+    ],
+    "languages": [
+      "i̇ngilizce"
+    ],
+    "certificates": [
+      "juniper jncia"
+    ],
+    "projects": [
+      "vpn entegrasyonu"
+    ]
+  },
+  {
+    "cv_id": "cv_00015",
+    "education": {
+      "sabancı üniversitesi": "siber güvenlik"
+    },
+    "experience": [
+      {
+        "role": "yazılım geliştirici",
+        "years": 7
+      }
+    ],
+    "skills": [
+      "python",
+      "django",
+      "flask",
+      "rest api"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "almanca"
+    ],
+    "certificates": [
+      "oracle java se"
+    ],
+    "projects": [
+      "kurumsal crm sistemi"
+    ]
+  },
+  {
+    "cv_id": "cv_00016",
+    "education": {
+      "bayburt üniversitesi": "bilgisayar teknolojileri"
+    },
+    "experience": [
+      {
+        "role": "mobile developer",
+        "years": 0.5
+      }
+    ],
+    "skills": [
+      "flutter",
+      "dart",
+      "firebase",
+      "react native"
+    ],
+    "languages": [],
+    "certificates": [
+      "android developer"
+    ],
+    "projects": [
+      "ios uygulaması"
+    ]
+  },
+  {
+    "cv_id": "cv_00017",
+    "education": {
+      "i̇stanbul gelişim üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "yapay zeka mühendisi",
+        "years": 1.5
+      }
+    ],
+    "skills": [
+      "pytorch",
+      "hugging face",
+      "docker",
+      "scikit-learn"
+    ],
+    "languages": [
+      "fransızca"
+    ],
+    "certificates": [
+      "ai engineer associate"
+    ],
+    "projects": [
+      "görüntü işleme"
+    ]
+  },
+  {
+    "cv_id": "cv_00018",
+    "education": {
+      "beykent üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "ağ uzmanı",
+        "years": 2
+      }
+    ],
+    "skills": [
+      "juniper",
+      "network security",
+      "lan",
+      "wan"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "i̇spanyolca"
+    ],
+    "certificates": [
+      "cisco ccna"
+    ],
+    "projects": [
+      "firewall güvenlik projesi"
+    ]
+  },
+  {
+    "cv_id": "cv_00019",
+    "education": {
+      "batman üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "solution architect",
+        "years": 2.5
+      }
+    ],
+    "skills": [
+      "microservices",
+      "api design",
+      "cloud"
+    ],
+    "languages": [
+      "fransızca"
+    ],
+    "certificates": [
+      "microsoft solutions architect"
+    ],
+    "projects": [
+      "system integration"
+    ]
+  },
+  {
+    "cv_id": "cv_00020",
+    "education": {
+      "harran üniversitesi": "bilgisayar mühendisliği"
+    },
+    "experience": [
+      {
+        "role": "yapay zeka mühendisi",
+        "years": 1
+      }
+    ],
+    "skills": [
+      "keras",
+      "opencv",
+      "mlflow",
+      "pandas"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "i̇spanyolca"
+    ],
+    "certificates": [
+      "tensorflow developer"
+    ],
+    "projects": [
+      "öneri sistemi"
+    ]
+  },
+  {
+    "cv_id": "cv_00021",
+    "education": {
+      "trakya üniversitesi": "bilgisayar mühendisliği"
+    },
+    "experience": [
+      {
+        "role": "yazılım geliştirici",
+        "years": 7
+      }
+    ],
+    "skills": [
+      "java",
+      "spring boot",
+      "react",
+      "postgresql"
+    ],
+    "languages": [
+      "fransızca"
+    ],
+    "certificates": [
+      "oracle java se"
+    ],
+    "projects": [
+      "kurumsal crm sistemi"
+    ]
+  },
+  {
+    "cv_id": "cv_00022",
+    "education": {
+      "harran üniversitesi": "bilgisayar mühendisliği"
+    },
+    "experience": [
+      {
+        "role": "it project manager",
+        "years": 1
+      }
+    ],
+    "skills": [
+      "agile",
+      "scrum",
+      "jira",
+      "confluence"
+    ],
+    "languages": [],
+    "certificates": [
+      "pmp"
+    ],
+    "projects": [
+      "waterfall entegrasyonu"
+    ]
+  },
+  {
+    "cv_id": "cv_00023",
+    "education": {
+      "aksaray üniversitesi": "bilgisayar teknolojileri"
+    },
+    "experience": [
+      {
+        "role": "it support specialist",
+        "years": 7
+      }
+    ],
+    "skills": [
+      "office 365",
+      "remote desktop",
+      "customer support"
+    ],
+    "languages": [
+      "fransızca"
+    ],
+    "certificates": [
+      "microsoft support specialist"
+    ],
+    "projects": [
+      "remote desktop çözümü"
+    ]
+  },
+  {
+    "cv_id": "cv_00024",
+    "education": {
+      "koç üniversitesi": "yapay zeka ve veri bilimi"
+    },
+    "experience": [
+      {
+        "role": "it support specialist",
+        "years": 3
+      }
+    ],
+    "skills": [
+      "windows",
+      "linux",
+      "troubleshooting",
+      "help desk"
+    ],
+    "languages": [],
+    "certificates": [
+      "comptia a+"
+    ],
+    "projects": [
+      "remote desktop çözümü"
+    ]
+  },
+  {
+    "cv_id": "cv_00025",
+    "education": {
+      "batman üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "sistem mühendisi",
+        "years": 2
+      }
+    ],
+    "skills": [
+      "shell scripting",
+      "docker",
+      "kubernetes",
+      "ci",
+      "cd"
+    ],
+    "languages": [
+      "fransızca"
+    ],
+    "certificates": [
+      "linux essentials"
+    ],
+    "projects": [
+      "active directory yönetimi"
+    ]
+  },
+  {
+    "cv_id": "cv_00026",
+    "education": {
+      "muğla sıtkı koçman üniversitesi": "bilgisayar teknolojileri"
+    },
+    "experience": [
+      {
+        "role": "yazılım geliştirici",
+        "years": 5
+      }
+    ],
+    "skills": [
+      "c#",
+      ".net core",
+      "angular",
+      "sql server"
+    ],
+    "languages": [
+      "fransızca"
+    ],
+    "certificates": [
+      "spring professional"
+    ],
+    "projects": [
+      "kurumsal crm sistemi"
+    ]
+  },
+  {
+    "cv_id": "cv_00027",
+    "education": {
+      "van yüzüncü yıl üniversitesi": "bilgisayar mühendisliği"
+    },
+    "experience": [
+      {
+        "role": "front-end developer",
+        "years": 5
+      }
+    ],
+    "skills": [
+      "angular",
+      "bootstrap",
+      "jquery",
+      "rest api"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "i̇spanyolca"
+    ],
+    "certificates": [
+      "angular specialist"
+    ],
+    "projects": [
+      "vue.js dashboard"
+    ]
+  },
+  {
+    "cv_id": "cv_00028",
+    "education": {
+      "doğu akdeniz üniversitesi": "bilgisayar mühendisliği"
+    },
+    "experience": [
+      {
+        "role": "cloud engineer",
+        "years": 2
+      }
+    ],
+    "skills": [
+      "cloud security",
+      "ci",
+      "cd",
+      "monitoring"
+    ],
+    "languages": [
+      "i̇ngilizce"
+    ],
+    "certificates": [
+      "google cloud engineer"
+    ],
+    "projects": [
+      "azure bulut migration"
+    ]
+  },
+  {
+    "cv_id": "cv_00029",
+    "education": {
+      "aksaray üniversitesi": "bilgisayar teknolojileri"
+    },
+    "experience": [
+      {
+        "role": "mlops engineer",
+        "years": 4
+      }
+    ],
+    "skills": [
+      "mlflow",
+      "docker",
+      "kubernetes",
+      "aws"
+    ],
+    "languages": [
+      "almanca"
+    ],
+    "certificates": [
+      "aws mlops engineer"
+    ],
+    "projects": [
+      "kubeflow pipeline"
+    ]
+  },
+  {
+    "cv_id": "cv_00030",
+    "education": {
+      "doğu akdeniz üniversitesi": "bilgisayar mühendisliği"
+    },
+    "experience": [
+      {
+        "role": "it project manager",
+        "years": 1.5
+      }
+    ],
+    "skills": [
+      "stakeholder management",
+      "risk analysis"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "almanca"
+    ],
+    "certificates": [
+      "scrum master"
+    ],
+    "projects": [
+      "waterfall entegrasyonu"
+    ]
+  },
+  {
+    "cv_id": "cv_00031",
+    "education": {
+      "kocaeli üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "bulut mimarisi uzmanı",
+        "years": 2
+      }
+    ],
+    "skills": [
+      "aws",
+      "gcp",
+      "azure",
+      "terraform"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "fransızca"
+    ],
+    "certificates": [
+      "aws solutions architect"
+    ],
+    "projects": [
+      "gcp big data analizi"
+    ]
+  },
+  {
+    "cv_id": "cv_00032",
+    "education": {
+      "ege üniversitesi": "matematik ve bilgisayar bilimleri"
+    },
+    "experience": [
+      {
+        "role": "sistem mühendisi",
+        "years": 3
+      }
+    ],
+    "skills": [
+      "shell scripting",
+      "docker",
+      "kubernetes",
+      "ci",
+      "cd"
+    ],
+    "languages": [],
+    "certificates": [
+      "linux essentials"
+    ],
+    "projects": [
+      "active directory yönetimi"
+    ]
+  },
+  {
+    "cv_id": "cv_00033",
+    "education": {
+      "bayburt üniversitesi": "bilgisayar teknolojileri"
+    },
+    "experience": [
+      {
+        "role": "network security engineer",
+        "years": 2
+      }
+    ],
+    "skills": [
+      "firewall",
+      "ids",
+      "ips",
+      "vpn",
+      "threat hunting"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "almanca"
+    ],
+    "certificates": [
+      "ccnp security"
+    ],
+    "projects": [
+      "siem entegrasyonu"
+    ]
+  },
+  {
+    "cv_id": "cv_00034",
+    "education": {
+      "i̇stanbul üniversitesi": "bilgi teknolojileri"
+    },
+    "experience": [
+      {
+        "role": "sistem mühendisi",
+        "years": 0.5
+      }
+    ],
+    "skills": [
+      "linux",
+      "windows server",
+      "vmware",
+      "bash"
+    ],
+    "languages": [
+      "almanca"
+    ],
+    "certificates": [
+      "linux essentials"
+    ],
+    "projects": [
+      "vmware altyapısı"
+    ]
+  },
+  {
+    "cv_id": "cv_00035",
+    "education": {
+      "muğla sıtkı koçman üniversitesi": "bilgisayar teknolojileri"
+    },
+    "experience": [
+      {
+        "role": "it project manager",
+        "years": 1
+      }
+    ],
+    "skills": [
+      "stakeholder management",
+      "risk analysis"
+    ],
+    "languages": [
+      "i̇ngilizce"
+    ],
+    "certificates": [
+      "pmp"
+    ],
+    "projects": [
+      "agile proje yönetimi"
+    ]
+  },
+  {
+    "cv_id": "cv_00036",
+    "education": {
+      "kocaeli üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "front-end developer",
+        "years": 6
+      }
+    ],
+    "skills": [
+      "html",
+      "css",
+      "javascript",
+      "react"
+    ],
+    "languages": [
+      "i̇ngilizce"
+    ],
+    "certificates": [
+      "angular specialist"
+    ],
+    "projects": [
+      "angular portal"
+    ]
+  },
+  {
+    "cv_id": "cv_00037",
+    "education": {
+      "endüstri mühendisliği": "yıldız teknik"
+    },
+    "experience": [
+      {
+        "role": "cloud engineer",
+        "years": 7
+      }
+    ],
+    "skills": [
+      "aws",
+      "azure",
+      "gcp",
+      "docker"
+    ],
+    "languages": [
+      "fransızca"
+    ],
+    "certificates": [
+      "aws cloud practitioner"
+    ],
+    "projects": [
+      "aws ci cd entegrasyonu"
+    ]
+  },
+  {
+    "cv_id": "cv_00038",
+    "education": {
+      "muğla sıtkı koçman üniversitesi": "bilgisayar teknolojileri"
+    },
+    "experience": [
+      {
+        "role": "mlops engineer",
+        "years": 3
+      }
+    ],
+    "skills": [
+      "mlflow",
+      "docker",
+      "kubernetes",
+      "aws"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "almanca"
+    ],
+    "certificates": [
+      "kubeflow specialist"
+    ],
+    "projects": [
+      "tensorflow serving"
+    ]
+  },
+  {
+    "cv_id": "cv_00039",
+    "education": {
+      "i̇nönü üniversitesi": "bilgisayar mühendisliği"
+    },
+    "experience": [
+      {
+        "role": "blockchain developer",
+        "years": 1
+      }
+    ],
+    "skills": [
+      "web3.js",
+      "cryptography",
+      "dapps"
+    ],
+    "languages": [
+      "almanca"
+    ],
+    "certificates": [
+      "blockchain security"
+    ],
+    "projects": [
+      "ethereum smart contract"
+    ]
+  },
+  {
+    "cv_id": "cv_00040",
+    "education": {
+      "endüstri mühendisliği": "yıldız teknik"
+    },
+    "experience": [
+      {
+        "role": "veritabanı uzmanı",
+        "years": 3
+      }
+    ],
+    "skills": [
+      "mysql",
+      "nosql",
+      "database tuning",
+      "backup systems"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "fransızca"
+    ],
+    "certificates": [
+      "oracle dba"
+    ],
+    "projects": [
+      "postgresql tuning"
+    ]
+  },
+  {
+    "cv_id": "cv_00041",
+    "education": {
+      "maltepe üniversitesi": "yazılım mühendisliği"
+    },
+    "experience": [
+      {
+        "role": "front-end developer",
+        "years": 3
+      }
+    ],
+    "skills": [
+      "angular",
+      "bootstrap",
+      "jquery",
+      "rest api"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "fransızca"
+    ],
+    "certificates": [
+      "angular specialist"
+    ],
+    "projects": [
+      "react web arayüzü"
+    ]
+  },
+  {
+    "cv_id": "cv_00042",
+    "education": {
+      "aksaray üniversitesi": "bilgisayar teknolojileri"
+    },
+    "experience": [
+      {
+        "role": "makine öğrenmesi uzmanı",
+        "years": 1
+      }
+    ],
+    "skills": [
+      "tensorflow",
+      "deep learning",
+      "keras",
+      "cnn"
+    ],
+    "languages": [
+      "almanca"
+    ],
+    "certificates": [
+      "aws ml specialty"
+    ],
+    "projects": [
+      "tahminleme modeli"
+    ]
+  },
+  {
+    "cv_id": "cv_00043",
+    "education": {
+      "koç üniversitesi": "yapay zeka ve veri bilimi"
+    },
+    "experience": [
+      {
+        "role": "yazılım geliştirici",
+        "years": 3
+      }
+    ],
+    "skills": [
+      "c#",
+      ".net core",
+      "angular",
+      "sql server"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "fransızca"
+    ],
+    "certificates": [
+      "oracle java se"
+    ],
+    "projects": [
+      "e-ticaret web uygulaması"
+    ]
+  },
+  {
+    "cv_id": "cv_00044",
+    "education": {
+      "batman üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "bulut mimarisi uzmanı",
+        "years": 3
+      }
+    ],
+    "skills": [
+      "docker",
+      "kubernetes",
+      "ci",
+      "cd",
+      "cloud security"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "almanca"
+    ],
+    "certificates": [
+      "aws solutions architect"
+    ],
+    "projects": [
+      "gcp big data analizi"
+    ]
+  },
+  {
+    "cv_id": "cv_00045",
+    "education": {
+      "trakya üniversitesi": "bilgisayar mühendisliği"
+    },
+    "experience": [
+      {
+        "role": "blockchain developer",
+        "years": 3
+      }
+    ],
+    "skills": [
+      "web3.js",
+      "cryptography",
+      "dapps"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "fransızca"
+    ],
+    "certificates": [
+      "blockchain security"
+    ],
+    "projects": [
+      "ethereum smart contract"
+    ]
+  },
+  {
+    "cv_id": "cv_00046",
+    "education": {
+      "koç üniversitesi": "yapay zeka ve veri bilimi"
+    },
+    "experience": [
+      {
+        "role": "yazılım geliştirici",
+        "years": 2.5
+      }
+    ],
+    "skills": [
+      "java",
+      "spring boot",
+      "react",
+      "postgresql"
+    ],
+    "languages": [
+      "fransızca"
+    ],
+    "certificates": [
+      "oracle java se"
+    ],
+    "projects": [
+      "kurumsal crm sistemi"
+    ]
+  },
+  {
+    "cv_id": "cv_00047",
+    "education": {
+      "erciyes üniversitesi": "bilgisayar mühendisliği"
+    },
+    "experience": [
+      {
+        "role": "back-end developer",
+        "years": 1
+      }
+    ],
+    "skills": [
+      "node.js",
+      "express",
+      "mongodb",
+      "redis"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "fransızca"
+    ],
+    "certificates": [
+      "java spring specialist"
+    ],
+    "projects": [
+      "spring boot rest servisleri"
+    ]
+  },
+  {
+    "cv_id": "cv_00048",
+    "education": {
+      "artvin çoruh üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "veri analisti",
+        "years": 7
+      }
+    ],
+    "skills": [
+      "sql",
+      "excel",
+      "power bi",
+      "tableau"
+    ],
+    "languages": [
+      "almanca"
+    ],
+    "certificates": [
+      "tableau specialist"
+    ],
+    "projects": [
+      "müşteri segmentasyonu"
+    ]
+  },
+  {
+    "cv_id": "cv_00049",
+    "education": {
+      "sakarya uygulamalı bilimler üniversitesi": "bilgisayar teknolojileri"
+    },
+    "experience": [
+      {
+        "role": "devops mühendisi",
+        "years": 2.5
+      }
+    ],
+    "skills": [
+      "linux",
+      "bash",
+      "puppet",
+      "monitoring tools"
+    ],
+    "languages": [
+      "i̇ngilizce"
+    ],
+    "certificates": [
+      "kubernetes cka"
+    ],
+    "projects": [
+      "kubernetes yönetimi"
+    ]
+  },
+  {
+    "cv_id": "cv_00050",
+    "education": {
+      "van yüzüncü yıl üniversitesi": "bilgisayar mühendisliği"
+    },
+    "experience": [
+      {
+        "role": "it project manager",
+        "years": 1
+      }
+    ],
+    "skills": [
+      "agile",
+      "scrum",
+      "jira",
+      "confluence"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "almanca"
+    ],
+    "certificates": [
+      "scrum master"
+    ],
+    "projects": [
+      "agile proje yönetimi"
+    ]
+  },
+  {
+    "cv_id": "cv_00051",
+    "education": {
+      "yapay zeka ve veri mühendisliği": "tobb etü"
+    },
+    "experience": [
+      {
+        "role": "it support specialist",
+        "years": 1
+      }
+    ],
+    "skills": [
+      "windows",
+      "linux",
+      "troubleshooting",
+      "help desk"
+    ],
+    "languages": [
+      "almanca"
+    ],
+    "certificates": [
+      "microsoft support specialist"
+    ],
+    "projects": [
+      "donanım kurulumu"
+    ]
+  },
+  {
+    "cv_id": "cv_00052",
+    "education": {
+      "erciyes üniversitesi": "bilgisayar mühendisliği"
+    },
+    "experience": [
+      {
+        "role": "data scientist",
+        "years": 0.5
+      }
+    ],
+    "skills": [
+      "machine learning",
+      "deep learning",
+      "sql"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "fransızca"
+    ],
+    "certificates": [
+      "microsoft data scientist"
+    ],
+    "projects": [
+      "sentiment analizi"
+    ]
+  },
+  {
+    "cv_id": "cv_00053",
+    "education": {
+      "kırıkkale üniversitesi": "bilgisayar teknolojileri"
+    },
+    "experience": [
+      {
+        "role": "veri analisti",
+        "years": 7
+      }
+    ],
+    "skills": [
+      "sql",
+      "excel",
+      "power bi",
+      "tableau"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "almanca"
+    ],
+    "certificates": [
+      "tableau specialist"
+    ],
+    "projects": [
+      "finansal analiz"
+    ]
+  },
+  {
+    "cv_id": "cv_00054",
+    "education": {
+      "harran üniversitesi": "bilgisayar mühendisliği"
+    },
+    "experience": [
+      {
+        "role": "veri analisti",
+        "years": 3
+      }
+    ],
+    "skills": [
+      "sql",
+      "excel",
+      "power bi",
+      "tableau"
+    ],
+    "languages": [
+      "i̇ngilizce"
+    ],
+    "certificates": [
+      "google data analytics"
+    ],
+    "projects": [
+      "finansal analiz"
+    ]
+  },
+  {
+    "cv_id": "cv_00055",
+    "education": {
+      "batman üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "data scientist",
+        "years": 6
+      }
+    ],
+    "skills": [
+      "machine learning",
+      "deep learning",
+      "sql"
+    ],
+    "languages": [
+      "almanca"
+    ],
+    "certificates": [
+      "ibm data science"
+    ],
+    "projects": [
+      "sentiment analizi"
+    ]
+  },
+  {
+    "cv_id": "cv_00056",
+    "education": {
+      "i̇stanbul bilgi üniversitesi": "bilgi güvenliği"
+    },
+    "experience": [
+      {
+        "role": "business intelligence specialist",
+        "years": 5
+      }
+    ],
+    "skills": [
+      "qlikview",
+      "python",
+      "business analytics"
+    ],
+    "languages": [],
+    "certificates": [
+      "qlikview specialist"
+    ],
+    "projects": [
+      "tableau raporlama"
+    ]
+  },
+  {
+    "cv_id": "cv_00057",
+    "education": {
+      "ufuk üniversitesi": "siber güvenlik"
+    },
+    "experience": [
+      {
+        "role": "back-end developer",
+        "years": 6
+      }
+    ],
+    "skills": [
+      "java",
+      "spring boot",
+      "hibernate",
+      "postgresql"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "fransızca"
+    ],
+    "certificates": [
+      "node.js developer"
+    ],
+    "projects": [
+      "flask mikroservis"
+    ]
+  },
+  {
+    "cv_id": "cv_00058",
+    "education": {
+      "endüstri mühendisliği": "yıldız teknik"
+    },
+    "experience": [
+      {
+        "role": "business intelligence specialist",
+        "years": 2
+      }
+    ],
+    "skills": [
+      "tableau",
+      "etl",
+      "data modelling",
+      "excel"
+    ],
+    "languages": [
+      "fransızca"
+    ],
+    "certificates": [
+      "power bi certification"
+    ],
+    "projects": [
+      "tableau raporlama"
+    ]
+  },
+  {
+    "cv_id": "cv_00059",
+    "education": {
+      "batman üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "mobile developer",
+        "years": 7
+      }
+    ],
+    "skills": [
+      "flutter",
+      "dart",
+      "firebase",
+      "react native"
+    ],
+    "languages": [
+      "i̇ngilizce"
+    ],
+    "certificates": [
+      "ios developer"
+    ],
+    "projects": [
+      "ios uygulaması"
+    ]
+  },
+  {
+    "cv_id": "cv_00060",
+    "education": {
+      "kocaeli üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "yapay zeka mühendisi",
+        "years": 0.5
+      }
+    ],
+    "skills": [
+      "keras",
+      "opencv",
+      "mlflow",
+      "pandas"
+    ],
+    "languages": [
+      "almanca"
+    ],
+    "certificates": [
+      "tensorflow developer"
+    ],
+    "projects": [
+      "görüntü işleme"
+    ]
+  },
+  {
+    "cv_id": "cv_00061",
+    "education": {
+      "beykent üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "full stack developer",
+        "years": 6
+      }
+    ],
+    "skills": [
+      "angular",
+      "java",
+      "spring boot",
+      "mysql"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "almanca"
+    ],
+    "certificates": [
+      "mongodb developer"
+    ],
+    "projects": [
+      "blog platformu"
+    ]
+  },
+  {
+    "cv_id": "cv_00062",
+    "education": {
+      "elektrik elektronik mühendisliği": "hacettepe"
+    },
+    "experience": [
+      {
+        "role": "makine öğrenmesi uzmanı",
+        "years": 7
+      }
+    ],
+    "skills": [
+      "scikit-learn",
+      "pandas",
+      "numpy",
+      "xgboost"
+    ],
+    "languages": [],
+    "certificates": [
+      "deeplearning.ai ml"
+    ],
+    "projects": [
+      "derin öğrenme sınıflandırma"
+    ]
+  },
+  {
+    "cv_id": "cv_00063",
+    "education": {
+      "ege üniversitesi": "matematik ve bilgisayar bilimleri"
+    },
+    "experience": [
+      {
+        "role": "rpa developer",
+        "years": 2.5
+      }
+    ],
+    "skills": [
+      "python",
+      "selenium",
+      "workflow automation"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "fransızca"
+    ],
+    "certificates": [
+      "blue prism rpa"
+    ],
+    "projects": [
+      "selenium test bot"
+    ]
+  },
+  {
+    "cv_id": "cv_00064",
+    "education": {
+      "bayburt üniversitesi": "bilgisayar teknolojileri"
+    },
+    "experience": [
+      {
+        "role": "it support specialist",
+        "years": 4
+      }
+    ],
+    "skills": [
+      "office 365",
+      "remote desktop",
+      "customer support"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "fransızca"
+    ],
+    "certificates": [
+      "microsoft support specialist"
+    ],
+    "projects": [
+      "donanım kurulumu"
+    ]
+  },
+  {
+    "cv_id": "cv_00065",
+    "education": {
+      "fırat üniversitesi": "yazılım mühendisliği"
+    },
+    "experience": [
+      {
+        "role": "veritabanı uzmanı",
+        "years": 5
+      }
+    ],
+    "skills": [
+      "pl",
+      "sql",
+      "data warehousing",
+      "etl",
+      "cassandra"
+    ],
+    "languages": [
+      "fransızca"
+    ],
+    "certificates": [
+      "oracle dba"
+    ],
+    "projects": [
+      "mysql yedekleme"
+    ]
+  },
+  {
+    "cv_id": "cv_00066",
+    "education": {
+      "koç üniversitesi": "yapay zeka ve veri bilimi"
+    },
+    "experience": [
+      {
+        "role": "business intelligence specialist",
+        "years": 2.5
+      }
+    ],
+    "skills": [
+      "qlikview",
+      "python",
+      "business analytics"
+    ],
+    "languages": [],
+    "certificates": [
+      "power bi certification"
+    ],
+    "projects": [
+      "tableau raporlama"
+    ]
+  },
+  {
+    "cv_id": "cv_00067",
+    "education": {
+      "van yüzüncü yıl üniversitesi": "bilgisayar mühendisliği"
+    },
+    "experience": [
+      {
+        "role": "yapay zeka mühendisi",
+        "years": 6
+      }
+    ],
+    "skills": [
+      "python",
+      "tensorflow",
+      "nlp",
+      "sql"
+    ],
+    "languages": [],
+    "certificates": [
+      "ai engineer associate"
+    ],
+    "projects": [
+      "öneri sistemi"
+    ]
+  },
+  {
+    "cv_id": "cv_00068",
+    "education": {
+      "ege üniversitesi": "matematik ve bilgisayar bilimleri"
+    },
+    "experience": [
+      {
+        "role": "mlops engineer",
+        "years": 2.5
+      }
+    ],
+    "skills": [
+      "pytorch",
+      "kubeflow",
+      "azure ml"
+    ],
+    "languages": [
+      "fransızca"
+    ],
+    "certificates": [
+      "kubeflow specialist"
+    ],
+    "projects": [
+      "tensorflow serving"
+    ]
+  },
+  {
+    "cv_id": "cv_00069",
+    "education": {
+      "yazılım mühendisliği": "odtü"
+    },
+    "experience": [
+      {
+        "role": "it support specialist",
+        "years": 7
+      }
+    ],
+    "skills": [
+      "hardware",
+      "networking",
+      "ticketing systems"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "almanca"
+    ],
+    "certificates": [
+      "comptia a+"
+    ],
+    "projects": [
+      "help desk destek"
+    ]
+  },
+  {
+    "cv_id": "cv_00070",
+    "education": {
+      "i̇stanbul gelişim üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "qa engineer",
+        "years": 1
+      }
+    ],
+    "skills": [
+      "manual testing",
+      "postman",
+      "api testing"
+    ],
+    "languages": [
+      "fransızca"
+    ],
+    "certificates": [
+      "istqb foundation"
+    ],
+    "projects": [
+      "api testleri"
+    ]
+  },
+  {
+    "cv_id": "cv_00071",
+    "education": {
+      "endüstri mühendisliği": "yıldız teknik"
+    },
+    "experience": [
+      {
+        "role": "veri analisti",
+        "years": 2
+      }
+    ],
+    "skills": [
+      "google data studio",
+      "sql",
+      "spss",
+      "excel"
+    ],
+    "languages": [],
+    "certificates": [
+      "google data analytics"
+    ],
+    "projects": [
+      "müşteri segmentasyonu"
+    ]
+  },
+  {
+    "cv_id": "cv_00072",
+    "education": {
+      "ege üniversitesi": "matematik ve bilgisayar bilimleri"
+    },
+    "experience": [
+      {
+        "role": "cloud engineer",
+        "years": 1.5
+      }
+    ],
+    "skills": [
+      "cloud security",
+      "ci",
+      "cd",
+      "monitoring"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "almanca"
+    ],
+    "certificates": [
+      "aws cloud practitioner"
+    ],
+    "projects": [
+      "azure bulut migration"
+    ]
+  },
+  {
+    "cv_id": "cv_00073",
+    "education": {
+      "düzce üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "cloud engineer",
+        "years": 2.5
+      }
+    ],
+    "skills": [
+      "cloud security",
+      "ci",
+      "cd",
+      "monitoring"
+    ],
+    "languages": [
+      "fransızca"
+    ],
+    "certificates": [
+      "google cloud engineer"
+    ],
+    "projects": [
+      "gcp monitoring"
+    ]
+  },
+  {
+    "cv_id": "cv_00074",
+    "education": {
+      "kırıkkale üniversitesi": "bilgisayar teknolojileri"
+    },
+    "experience": [
+      {
+        "role": "devops mühendisi",
+        "years": 6
+      }
+    ],
+    "skills": [
+      "kubernetes",
+      "ansible",
+      "terraform",
+      "aws"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "i̇spanyolca"
+    ],
+    "certificates": [
+      "kubernetes cka"
+    ],
+    "projects": [
+      "docker tabanlı dağıtım"
+    ]
+  },
+  {
+    "cv_id": "cv_00075",
+    "education": {
+      "düzce üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "qa engineer",
+        "years": 2.5
+      }
+    ],
+    "skills": [
+      "selenium",
+      "junit",
+      "testng",
+      "cypress"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "i̇spanyolca"
+    ],
+    "certificates": [
+      "selenium webdriver specialist"
+    ],
+    "projects": [
+      "selenium test otomasyonu"
+    ]
+  },
+  {
+    "cv_id": "cv_00076",
+    "education": {
+      "kocaeli üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "it support specialist",
+        "years": 2.5
+      }
+    ],
+    "skills": [
+      "hardware",
+      "networking",
+      "ticketing systems"
+    ],
+    "languages": [
+      "almanca"
+    ],
+    "certificates": [
+      "microsoft support specialist"
+    ],
+    "projects": [
+      "donanım kurulumu"
+    ]
+  },
+  {
+    "cv_id": "cv_00077",
+    "education": {
+      "sabancı üniversitesi": "siber güvenlik"
+    },
+    "experience": [
+      {
+        "role": "business intelligence specialist",
+        "years": 7
+      }
+    ],
+    "skills": [
+      "power bi",
+      "sql",
+      "dax",
+      "data warehousing"
+    ],
+    "languages": [],
+    "certificates": [
+      "qlikview specialist"
+    ],
+    "projects": [
+      "etl süreci"
+    ]
+  },
+  {
+    "cv_id": "cv_00078",
+    "education": {
+      "muğla sıtkı koçman üniversitesi": "bilgisayar teknolojileri"
+    },
+    "experience": [
+      {
+        "role": "yapay zeka mühendisi",
+        "years": 6
+      }
+    ],
+    "skills": [
+      "keras",
+      "opencv",
+      "mlflow",
+      "pandas"
+    ],
+    "languages": [
+      "i̇ngilizce"
+    ],
+    "certificates": [
+      "ai engineer associate"
+    ],
+    "projects": [
+      "chatbot nlp"
+    ]
+  },
+  {
+    "cv_id": "cv_00079",
+    "education": {
+      "boğaziçi üniversitesi": "bilgisayar mühendisliği"
+    },
+    "experience": [
+      {
+        "role": "full stack developer",
+        "years": 5
+      }
+    ],
+    "skills": [
+      "angular",
+      "java",
+      "spring boot",
+      "mysql"
+    ],
+    "languages": [
+      "almanca"
+    ],
+    "certificates": [
+      "mongodb developer"
+    ],
+    "projects": [
+      "kurumsal portal"
+    ]
+  },
+  {
+    "cv_id": "cv_00080",
+    "education": {
+      "ufuk üniversitesi": "siber güvenlik"
+    },
+    "experience": [
+      {
+        "role": "mobile developer",
+        "years": 5
+      }
+    ],
+    "skills": [
+      "ios",
+      "swift",
+      "objective-c",
+      "xcode"
+    ],
+    "languages": [],
+    "certificates": [
+      "ios developer"
+    ],
+    "projects": [
+      "ios uygulaması"
+    ]
+  },
+  {
+    "cv_id": "cv_00081",
+    "education": {
+      "i̇stanbul bilgi üniversitesi": "bilgi güvenliği"
+    },
+    "experience": [
+      {
+        "role": "makine öğrenmesi uzmanı",
+        "years": 2
+      }
+    ],
+    "skills": [
+      "tensorflow",
+      "deep learning",
+      "keras",
+      "cnn"
+    ],
+    "languages": [
+      "i̇ngilizce"
+    ],
+    "certificates": [
+      "aws ml specialty"
+    ],
+    "projects": [
+      "derin öğrenme sınıflandırma"
+    ]
+  },
+  {
+    "cv_id": "cv_00082",
+    "education": {
+      "ufuk üniversitesi": "siber güvenlik"
+    },
+    "experience": [
+      {
+        "role": "front-end developer",
+        "years": 0.5
+      }
+    ],
+    "skills": [
+      "html",
+      "css",
+      "javascript",
+      "react"
+    ],
+    "languages": [
+      "fransızca"
+    ],
+    "certificates": [
+      "react developer certificate"
+    ],
+    "projects": [
+      "vue.js dashboard"
+    ]
+  },
+  {
+    "cv_id": "cv_00083",
+    "education": {
+      "yazılım mühendisliği": "odtü"
+    },
+    "experience": [
+      {
+        "role": "full stack developer",
+        "years": 2
+      }
+    ],
+    "skills": [
+      "angular",
+      "java",
+      "spring boot",
+      "mysql"
+    ],
+    "languages": [
+      "fransızca"
+    ],
+    "certificates": [
+      "mongodb developer"
+    ],
+    "projects": [
+      "kurumsal portal"
+    ]
+  },
+  {
+    "cv_id": "cv_00084",
+    "education": {
+      "bilişim sistemleri": "i̇tü"
+    },
+    "experience": [
+      {
+        "role": "full stack developer",
+        "years": 5
+      }
+    ],
+    "skills": [
+      "angular",
+      "java",
+      "spring boot",
+      "mysql"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "fransızca"
+    ],
+    "certificates": [
+      "full stack web development"
+    ],
+    "projects": [
+      "blog platformu"
+    ]
+  },
+  {
+    "cv_id": "cv_00085",
+    "education": {
+      "ufuk üniversitesi": "siber güvenlik"
+    },
+    "experience": [
+      {
+        "role": "mobile developer",
+        "years": 4
+      }
+    ],
+    "skills": [
+      "android",
+      "java",
+      "kotlin",
+      "sqlite"
+    ],
+    "languages": [],
+    "certificates": [
+      "android developer"
+    ],
+    "projects": [
+      "ios uygulaması"
+    ]
+  },
+  {
+    "cv_id": "cv_00086",
+    "education": {
+      "elektrik elektronik mühendisliği": "hacettepe"
+    },
+    "experience": [
+      {
+        "role": "network security engineer",
+        "years": 2
+      }
+    ],
+    "skills": [
+      "siem",
+      "splunk",
+      "incident response"
+    ],
+    "languages": [],
+    "certificates": [
+      "cissp"
+    ],
+    "projects": [
+      "siem entegrasyonu"
+    ]
+  },
+  {
+    "cv_id": "cv_00087",
+    "education": {
+      "aksaray üniversitesi": "bilgisayar teknolojileri"
+    },
+    "experience": [
+      {
+        "role": "siber güvenlik uzmanı",
+        "years": 3
+      }
+    ],
+    "skills": [
+      "ethical hacking",
+      "vulnerability assessment",
+      "python"
+    ],
+    "languages": [
+      "fransızca"
+    ],
+    "certificates": [
+      "comptia security+"
+    ],
+    "projects": [
+      "ids ips yapılandırması"
+    ]
+  },
+  {
+    "cv_id": "cv_00088",
+    "education": {
+      "i̇stanbul bilgi üniversitesi": "bilgi güvenliği"
+    },
+    "experience": [
+      {
+        "role": "sistem mühendisi",
+        "years": 3
+      }
+    ],
+    "skills": [
+      "linux",
+      "windows server",
+      "vmware",
+      "bash"
+    ],
+    "languages": [],
+    "certificates": [
+      "vmware certified professional"
+    ],
+    "projects": [
+      "sunucu optimizasyonu"
+    ]
+  },
+  {
+    "cv_id": "cv_00089",
+    "education": {
+      "i̇zmir ekonomi üniversitesi": "yapay zeka mühendisliği"
+    },
+    "experience": [
+      {
+        "role": "siber güvenlik uzmanı",
+        "years": 7
+      }
+    ],
+    "skills": [
+      "comptia security+",
+      "ids",
+      "ips",
+      "siem",
+      "splunk"
+    ],
+    "languages": [
+      "fransızca"
+    ],
+    "certificates": [
+      "comptia security+"
+    ],
+    "projects": [
+      "ids ips yapılandırması"
+    ]
+  },
+  {
+    "cv_id": "cv_00090",
+    "education": {
+      "artvin çoruh üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "business intelligence specialist",
+        "years": 2.5
+      }
+    ],
+    "skills": [
+      "tableau",
+      "etl",
+      "data modelling",
+      "excel"
+    ],
+    "languages": [
+      "almanca"
+    ],
+    "certificates": [
+      "qlikview specialist"
+    ],
+    "projects": [
+      "etl süreci"
+    ]
+  },
+  {
+    "cv_id": "cv_00091",
+    "education": {
+      "maltepe üniversitesi": "yazılım mühendisliği"
+    },
+    "experience": [
+      {
+        "role": "full stack developer",
+        "years": 6
+      }
+    ],
+    "skills": [
+      "react",
+      "node.js",
+      "express",
+      "mongodb"
+    ],
+    "languages": [
+      "i̇ngilizce"
+    ],
+    "certificates": [
+      "mongodb developer"
+    ],
+    "projects": [
+      "kurumsal portal"
+    ]
+  },
+  {
+    "cv_id": "cv_00092",
+    "education": {
+      "sabancı üniversitesi": "siber güvenlik"
+    },
+    "experience": [
+      {
+        "role": "veri analisti",
+        "years": 0.5
+      }
+    ],
+    "skills": [
+      "google data studio",
+      "sql",
+      "spss",
+      "excel"
+    ],
+    "languages": [
+      "fransızca"
+    ],
+    "certificates": [
+      "tableau specialist"
+    ],
+    "projects": [
+      "finansal analiz"
+    ]
+  },
+  {
+    "cv_id": "cv_00093",
+    "education": {
+      "sakarya uygulamalı bilimler üniversitesi": "bilgisayar teknolojileri"
+    },
+    "experience": [
+      {
+        "role": "devops mühendisi",
+        "years": 3
+      }
+    ],
+    "skills": [
+      "linux",
+      "bash",
+      "puppet",
+      "monitoring tools"
+    ],
+    "languages": [],
+    "certificates": [
+      "kubernetes cka"
+    ],
+    "projects": [
+      "docker tabanlı dağıtım"
+    ]
+  },
+  {
+    "cv_id": "cv_00094",
+    "education": {
+      "koç üniversitesi": "yapay zeka ve veri bilimi"
+    },
+    "experience": [
+      {
+        "role": "veri analisti",
+        "years": 7
+      }
+    ],
+    "skills": [
+      "sql",
+      "excel",
+      "power bi",
+      "tableau"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "i̇spanyolca"
+    ],
+    "certificates": [
+      "google data analytics"
+    ],
+    "projects": [
+      "satış raporlama"
+    ]
+  },
+  {
+    "cv_id": "cv_00095",
+    "education": {
+      "yapay zeka ve veri mühendisliği": "tobb etü"
+    },
+    "experience": [
+      {
+        "role": "ağ uzmanı",
+        "years": 6
+      }
+    ],
+    "skills": [
+      "firewall",
+      "ids",
+      "ips",
+      "vpn",
+      "load balancer"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "fransızca"
+    ],
+    "certificates": [
+      "juniper jncia"
+    ],
+    "projects": [
+      "vpn entegrasyonu"
+    ]
+  },
+  {
+    "cv_id": "cv_00096",
+    "education": {
+      "ufuk üniversitesi": "siber güvenlik"
+    },
+    "experience": [
+      {
+        "role": "rpa developer",
+        "years": 1.5
+      }
+    ],
+    "skills": [
+      "uipath",
+      "automation anywhere",
+      "blue prism"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "fransızca"
+    ],
+    "certificates": [
+      "blue prism rpa"
+    ],
+    "projects": [
+      "selenium test bot"
+    ]
+  },
+  {
+    "cv_id": "cv_00097",
+    "education": {
+      "beykent üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "business intelligence specialist",
+        "years": 5
+      }
+    ],
+    "skills": [
+      "power bi",
+      "sql",
+      "dax",
+      "data warehousing"
+    ],
+    "languages": [
+      "i̇ngilizce",
+      "almanca"
+    ],
+    "certificates": [
+      "power bi certification"
+    ],
+    "projects": [
+      "etl süreci"
+    ]
+  },
+  {
+    "cv_id": "cv_00098",
+    "education": {
+      "aksaray üniversitesi": "bilgisayar teknolojileri"
+    },
+    "experience": [
+      {
+        "role": "mlops engineer",
+        "years": 6
+      }
+    ],
+    "skills": [
+      "ci",
+      "cd",
+      "model deployment",
+      "tensorflow serving"
+    ],
+    "languages": [
+      "almanca"
+    ],
+    "certificates": [
+      "aws mlops engineer"
+    ],
+    "projects": [
+      "mlflow deployment"
+    ]
+  },
+  {
+    "cv_id": "cv_00099",
+    "education": {
+      "beykent üniversitesi": "bilgisayar programcılığı"
+    },
+    "experience": [
+      {
+        "role": "blockchain developer",
+        "years": 3
+      }
+    ],
+    "skills": [
+      "web3.js",
+      "cryptography",
+      "dapps"
+    ],
+    "languages": [
+      "i̇ngilizce"
+    ],
+    "certificates": [
+      "ethereum developer"
+    ],
+    "projects": [
+      "hyperledger sistemi"
+    ]
+  },
+  {
+    "cv_id": "cv_00100",
+    "education": {
+      "aksaray üniversitesi": "bilgisayar teknolojileri"
+    },
+    "experience": [
+      {
+        "role": "business intelligence specialist",
+        "years": 5
+      }
+    ],
+    "skills": [
+      "tableau",
+      "etl",
+      "data modelling",
+      "excel"
+    ],
+    "languages": [
+      "i̇ngilizce"
+    ],
+    "certificates": [
+      "qlikview specialist"
+    ],
+    "projects": [
+      "power bi dashboard"
+    ]
+  }
+]
