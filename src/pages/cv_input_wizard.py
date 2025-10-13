@@ -1,0 +1,350 @@
+import streamlit as st
+import json
+from pathlib import Path
+
+# ---------- Sabit Listeler ----------
+# Eğitim - Üniversite - Bölüm (örnek; istersen JSON'dan da okuyabiliriz)
+EDU_LEVELS = ["— Seçiniz —", "Ön Lisans (MYO)", "Lisans", "Yüksek Lisans", "Doktora"]
+UNIVERSITIES = {
+    "Ön Lisans (MYO)": ["— Seçiniz —", "Anadolu Üniversitesi", "Ege Üniversitesi", "İstanbul Üniversitesi"],
+    "Lisans":           ["— Seçiniz —", "ODTÜ", "Boğaziçi", "İTÜ", "Ankara Üniversitesi"],
+    "Yüksek Lisans":    ["— Seçiniz —", "İTÜ", "Koç Üniversitesi", "Sabancı Üniversitesi"],
+    "Doktora":          ["— Seçiniz —", "ODTÜ", "Boğaziçi", "Koç Üniversitesi"],
+}
+DEPARTMENTS = {
+    "ODTÜ": ["— Seçiniz —", "Bilgisayar Mühendisliği", "Endüstri Müh.", "Yapay Zeka"],
+    "Boğaziçi": ["— Seçiniz —", "YBS", "Matematik", "Fizik"],
+    "İTÜ": ["— Seçiniz —", "Bilgisayar Müh.", "Elektronik", "Makine"],
+    "Anadolu Üniversitesi": ["— Seçiniz —", "Bilgisayar Programcılığı", "İşletme"],
+}
+
+# Deneyim alanı listeleri
+YEAR_RANGES = ["— Seçiniz —", "0-1 yıl", "1-3 yıl", "3-5 yıl", "5+ yıl"]
+
+# TODO: Burayı senin gönderdiğin rol listesiyle değiştir.
+ROLES = ["— Seçiniz —",
+         "Software Developer", "Data Analyst", "Project Manager",
+         "System Administrator", "Network Engineer", "AI Engineer"]
+
+# Yabancı diller
+LANGUAGES = ["— Seçiniz —", "İngilizce", "Almanca", "Fransızca", "İspanyolca", "Türkçe", "Rusça"]
+
+# Skill’leri dataset dosyasından çek
+def load_skills():
+    p = Path("dataset/skill-list-all.json")
+    if p.exists():
+        with p.open("r", encoding="utf-8") as f:
+            skills = json.load(f)
+        return ["— Seçiniz —"] + skills
+    return ["— Seçiniz —"]
+
+ALL_SKILLS = load_skills()
+
+# ---------- Yardımcılar ----------
+def _init_state():
+    ss = st.session_state
+    ss.setdefault("step", 1)  # 1: Eğitim, 2: Deneyim, 3: Skiller, 4: Diller, 5: Sertifikalar, 6: Projeler, 7: Özet
+    ss.setdefault("education", {"level": None, "university": None, "department": None})
+    ss.setdefault("experiences", [])
+    ss.setdefault("skills", [])
+    ss.setdefault("languages", [])
+    ss.setdefault("certificates", [])
+    ss.setdefault("projects", [])
+
+def _norm(s: str) -> str:
+    return (s or "").strip().lower()
+
+def _reset_widget(*keys):
+    for k in keys:
+        if k in st.session_state:
+            st.session_state[k] = None
+
+def _delete_button(label, key, on_click):
+    col1, col2 = st.columns([1, 8])
+    with col1:
+        if st.button(label, key=key):
+            on_click()
+
+# ---------- Adım 1: Eğitim ----------
+def step_education():
+    st.header("🎓 Adım 1: Eğitim Bilgileri")
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        level = st.selectbox("Son Eğitim Seviyesi", EDU_LEVELS, key="edu_level")
+    with col2:
+        uni_opts = UNIVERSITIES.get(level, ["— Seçiniz —"])
+        university = st.selectbox("Üniversite", uni_opts, key="edu_uni")
+    with col3:
+        dep_opts = DEPARTMENTS.get(university, ["— Seçiniz —"])
+        department = st.selectbox("Bölüm", dep_opts, key="edu_dep")
+
+    valid = (level and level != "— Seçiniz —" and
+             university and university != "— Seçiniz —" and
+             department and department != "— Seçiniz —")
+
+    st.markdown("---")
+    cols = st.columns([1,1,6,1])
+    with cols[0]:
+        back_disabled = True
+        st.button("⬅️ Geri", disabled=back_disabled)
+    with cols[1]:
+        if st.button("💾 Kaydet"):
+            if valid:
+                st.session_state["education"] = {
+                    "level": level, "university": university, "department": department
+                }
+                st.success("Eğitim bilgileri kaydedildi.")
+            else:
+                st.error("Lütfen tüm alanları seçiniz.")
+    with cols[3]:
+        st.button("➡️ İleri", disabled=not valid, on_click=lambda: _go(2))
+
+# ---------- Adım 2: Deneyimler ----------
+def step_experiences():
+    st.header("💼 Adım 2: İş Deneyimleri")
+    c1, c2, c3 = st.columns([3,2,2])
+    with c1:
+        company = st.text_input("Şirket Adı", key="exp_company")
+    with c2:
+        years = st.selectbox("Tecrübe Yılı (Aralık)", YEAR_RANGES, key="exp_years")
+    with c3:
+        role = st.selectbox("Rol", ROLES, key="exp_role")
+
+    def add_exp():
+        if not company or years == "— Seçiniz —" or role == "— Seçiniz —":
+            st.warning("Tüm deneyim alanlarını doldurun.")
+            return
+        item = {"company": company.strip(), "years": years, "role": role}
+        # duplicate kontrol (company + role)
+        key = (_norm(item["company"]), _norm(item["role"]))
+        existing = {(_norm(x["company"]), _norm(x["role"])) for x in st.session_state["experiences"]}
+        if key in existing:
+            st.info("Bu şirket ve rol için deneyim zaten ekli.")
+            return
+        st.session_state["experiences"].append(item)
+        # alanları sıfırla
+        st.session_state["exp_company"] = ""
+        st.session_state["exp_years"] = YEAR_RANGES[0]
+        st.session_state["exp_role"] = ROLES[0]
+
+    st.button("➕ Deneyim Ekle", on_click=add_exp)
+
+    # Liste ve silme
+    if st.session_state["experiences"]:
+        st.subheader("Eklenen Deneyimler")
+        for i, exp in enumerate(st.session_state["experiences"]):
+            cols = st.columns([7,1])
+            with cols[0]:
+                st.markdown(f"- **{exp['company']}** | {exp['role']} ({exp['years']})")
+            with cols[1]:
+                if st.button("🗑️", key=f"del_exp_{i}"):
+                    st.session_state["experiences"].pop(i)
+                    st.session_state["rerun"] = True
+
+    st.markdown("---")
+    cols = st.columns([1,1,6,1])
+    with cols[0]:
+        st.button("⬅️ Geri", on_click=lambda: _go(1))
+    with cols[3]:
+        st.button("➡️ İleri", disabled=len(st.session_state["experiences"]) == 0, on_click=lambda: _go(3))
+
+# ---------- Adım 3: Skiller ----------
+def step_skills():
+    st.header("🧠 Adım 3: Yetenekler (Skills)")
+    skill = st.selectbox("Bir Skill Seç", ALL_SKILLS, key="skill_pick")
+
+    def add_skill():
+        if not skill or skill == "— Seçiniz —":
+            return
+        exists = {_norm(s) for s in st.session_state["skills"]}
+        if _norm(skill) in exists:
+            st.info("Bu skill zaten ekli.")
+            return
+        st.session_state["skills"].append(skill)
+        st.session_state["skill_pick"] = ALL_SKILLS[0]
+
+    st.button("➕ Skill Ekle", on_click=add_skill)
+
+    if st.session_state["skills"]:
+        st.subheader("Seçilen Skiller")
+        for i, s in enumerate(st.session_state["skills"]):
+            cols = st.columns([7,1])
+            with cols[0]:
+                st.markdown(f"- {s}")
+            with cols[1]:
+                if st.button("🗑️", key=f"del_skill_{i}"):
+                    st.session_state["skills"].pop(i)
+                    st.session_state["rerun"] = True
+
+    st.markdown("---")
+    cols = st.columns([1,1,6,1])
+    with cols[0]:
+        st.button("⬅️ Geri", on_click=lambda: _go(2))
+    with cols[3]:
+        st.button("➡️ İleri", disabled=len(st.session_state["skills"]) == 0, on_click=lambda: _go(4))
+
+# ---------- Adım 4: Diller ----------
+def step_languages():
+    st.header("🌍 Adım 4: Yabancı Diller")
+    lang = st.selectbox("Bir Dil Seç", LANGUAGES, key="lang_pick")
+
+    def add_lang():
+        if not lang or lang == "— Seçiniz —":
+            return
+        exists = {_norm(l) for l in st.session_state["languages"]}
+        if _norm(lang) in exists:
+            st.info("Bu dil zaten ekli.")
+            return
+        st.session_state["languages"].append(lang)
+        st.session_state["lang_pick"] = LANGUAGES[0]
+
+    st.button("➕ Dil Ekle", on_click=add_lang)
+
+    if st.session_state["languages"]:
+        st.subheader("Seçilen Diller")
+        for i, l in enumerate(st.session_state["languages"]):
+            cols = st.columns([7,1])
+            with cols[0]:
+                st.markdown(f"- {l}")
+            with cols[1]:
+                if st.button("🗑️", key=f"del_lang_{i}"):
+                    st.session_state["languages"].pop(i)
+                    st.session_state["rerun"] = True
+
+    st.markdown("---")
+    cols = st.columns([1,1,6,1])
+    with cols[0]:
+        st.button("⬅️ Geri", on_click=lambda: _go(3))
+    with cols[3]:
+        st.button("➡️ İleri", disabled=len(st.session_state["languages"]) == 0, on_click=lambda: _go(5))
+
+# ---------- Adım 5: Sertifikalar ----------
+def step_certificates():
+    st.header("📜 Adım 5: Sertifikalar")
+    cert = st.text_input("Sertifika Adı", key="cert_input")
+
+    def add_cert():
+        name = (cert or "").strip()
+        if not name:
+            return
+        exists = {_norm(c) for c in st.session_state["certificates"]}
+        if _norm(name) in exists:
+            st.info("Bu sertifika zaten ekli.")
+            return
+        st.session_state["certificates"].append(name)
+        st.session_state["cert_input"] = ""
+
+    st.button("➕ Sertifika Ekle", on_click=add_cert)
+
+    if st.session_state["certificates"]:
+        st.subheader("Eklenen Sertifikalar")
+        for i, c in enumerate(st.session_state["certificates"]):
+            cols = st.columns([7,1])
+            with cols[0]:
+                st.markdown(f"- {c}")
+            with cols[1]:
+                if st.button("🗑️", key=f"del_cert_{i}"):
+                    st.session_state["certificates"].pop(i)
+                    st.session_state["rerun"] = True
+
+    st.markdown("---")
+    cols = st.columns([1,1,6,1])
+    with cols[0]:
+        st.button("⬅️ Geri", on_click=lambda: _go(4))
+    with cols[3]:
+        st.button("➡️ İleri", disabled=len(st.session_state["certificates"]) == 0, on_click=lambda: _go(6))
+
+# ---------- Adım 6: Projeler ----------
+def step_projects():
+    st.header("🚀 Adım 6: Projeler")
+    title = st.text_input("Proje Başlığı", key="proj_title")
+    desc = st.text_area("Proje Açıklaması", key="proj_desc")
+
+    def add_project():
+        t = (title or "").strip()
+        d = (desc or "").strip()
+        if not t or not d:
+            st.warning("Başlık ve açıklamayı doldurun.")
+            return
+        # duplicate: aynı başlık
+        exists = {_norm(p["title"]) for p in st.session_state["projects"]}
+        if _norm(t) in exists:
+            st.info("Bu proje başlığı zaten ekli.")
+            return
+        st.session_state["projects"].append({"title": t, "description": d})
+        st.session_state["proj_title"] = ""
+        st.session_state["proj_desc"] = ""
+
+    st.button("➕ Proje Ekle", on_click=add_project)
+
+    if st.session_state["projects"]:
+        st.subheader("Eklenen Projeler")
+        for i, p in enumerate(st.session_state["projects"]):
+            cols = st.columns([7,1])
+            with cols[0]:
+                st.markdown(f"**{p['title']}** – {p['description']}")
+            with cols[1]:
+                if st.button("🗑️", key=f"del_proj_{i}"):
+                    st.session_state["projects"].pop(i)
+                    st.session_state["rerun"] = True
+
+    st.markdown("---")
+    cols = st.columns([1,1,5,2])
+    with cols[0]:
+        st.button("⬅️ Geri", on_click=lambda: _go(5))
+    with cols[3]:
+        st.button("➡️ Özet", disabled=len(st.session_state["projects"]) == 0, on_click=lambda: _go(7))
+
+# ---------- Adım 7: Özet ve Kaydet ----------
+def step_summary():
+    st.header("✅ Özet")
+    st.write("Aşağıdaki bilgiler kaydedilecek:")
+
+    data = {
+        "education": st.session_state["education"],
+        "experiences": st.session_state["experiences"],
+        "skills": st.session_state["skills"],
+        "languages": st.session_state["languages"],
+        "certificates": st.session_state["certificates"],
+        "projects": st.session_state["projects"],
+    }
+    st.json(data)
+
+    cols = st.columns([1,1,6,2])
+    with cols[0]:
+        st.button("⬅️ Geri", on_click=lambda: _go(6))
+    with cols[3]:
+        if st.button("💾 Kaydet (JSON)"):
+            Path("outputs").mkdir(exist_ok=True)
+            out_path = Path("outputs/user_cv_input.json")
+            out_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+            st.success(f"Dosya kaydedildi: {out_path}")
+
+# ---------- Navigation ----------
+def _go(step_no: int):
+    st.session_state["step"] = step_no
+
+def _stepper_ui():
+    labels = ["Eğitim", "Deneyim", "Skiller", "Diller", "Sertifikalar", "Projeler", "Özet"]
+    s = st.session_state["step"]
+    st.markdown(
+        " ➜ ".join(
+            [f"**{i+1}. {lbl}**" if i+1 == s else f"{i+1}. {lbl}" for i, lbl in enumerate(labels)]
+        )
+    )
+    st.markdown("---")
+
+# ---------- Entry ----------
+def cv_input_wizard():
+    _init_state()
+    _stepper_ui()
+
+    step = st.session_state["step"]
+    if step == 1:   step_education()
+    elif step == 2: step_experiences()
+    elif step == 3: step_skills()
+    elif step == 4: step_languages()
+    elif step == 5: step_certificates()
+    elif step == 6: step_projects()
+    elif step == 7: step_summary()
