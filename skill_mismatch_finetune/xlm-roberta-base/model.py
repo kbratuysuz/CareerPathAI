@@ -1,14 +1,38 @@
 import json
 import pandas as pd
+
+with open("../../dataset/job-postings/job-posting-dataset-all.json", "r", encoding="utf-8") as f:
+    jobs = {j["job_id"]: j["job_description_clean"] for j in json.load(f)}
+
+with open("../../dataset/job-postings/job-skills-all.json", "r", encoding="utf-8") as f:
+    labels = {j["job_id"]: [s["skill"] for s in j["skills"]] for j in json.load(f)}
+
+print("json files loaded")
+
+data = [{"job_id": jid, "text": jobs[jid], "labels": labels.get(jid, [])} for jid in jobs]
+df = pd.DataFrame(data)
+
+all_skills = sorted({s for v in labels.values() for s in v})
+print(len(all_skills), "unique skills")
+
 from sklearn.preprocessing import MultiLabelBinarizer
+
+mlb = MultiLabelBinarizer(classes=all_skills)
+y = mlb.fit_transform(df["labels"])
+
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
+
+# model_name = "dbmdz/bert-base-turkish-cased"
+model_name = "xlm-roberta-base"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForSequenceClassification.from_pretrained(
+    model_name,
+    num_labels=len(all_skills),
+    problem_type="multi_label_classification"
+)
+
 import torch
 from torch.utils.data import Dataset
-from transformers import Trainer, TrainingArguments
-import numpy as np, random
-from sklearn.model_selection import train_test_split
-import matplotlib.pyplot as plt
-
 
 class JobPostingDataset(Dataset):
     def __init__(self, texts, labels, tokenizer, max_len=512):
@@ -31,30 +55,10 @@ class JobPostingDataset(Dataset):
         item = {k: v.squeeze(0) for k, v in enc.items()}
         item["labels"] = torch.tensor(self.labels[idx], dtype=torch.float)
         return item
-    
-with open("dataset/job_posting_dataset.json", "r", encoding="utf-8") as f:
-    jobs = {j["job_id"]: j["job_description_clean"] for j in json.load(f)}
 
-with open("dataset/weak_labels.json", "r", encoding="utf-8") as f:
-    labels = {j["job_id"]: [s["skill"] for s in j["skills"]] for j in json.load(f)}
-
-data = [{"job_id": jid, "text": jobs[jid], "labels": labels.get(jid, [])} for jid in jobs]
-df = pd.DataFrame(data)
-
-all_skills = sorted({s for v in labels.values() for s in v})
-print(len(all_skills), "unique skills")
-
-mlb = MultiLabelBinarizer(classes=all_skills)
-y = mlb.fit_transform(df["labels"])
-
-# model_name = "dbmdz/bert-base-turkish-cased"
-model_name = "xlm-roberta-base"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForSequenceClassification.from_pretrained(
-    model_name,
-    num_labels=len(all_skills),
-    problem_type="multi_label_classification"
-)
+from transformers import Trainer, TrainingArguments
+import numpy as np, random
+from sklearn.model_selection import train_test_split
 
 seed = 42
 torch.manual_seed(seed)
@@ -63,7 +67,7 @@ random.seed(seed)
 
 train_args = TrainingArguments(
     output_dir="./outputs",
-    evaluation_strategy="epoch",
+    eval_strategy="epoch",
     save_strategy="epoch",
     learning_rate=3e-5,
     #per_device_train_batch_size=8,
@@ -117,6 +121,7 @@ with open("prediction-results.json", "w", encoding="utf-8") as f: json.dump(outp
 
 print("✅ Tahmin sonuçları 'predictions.json' dosyasına kaydedildi.")
 
+import matplotlib.pyplot as plt
 
 plt.hist(sigmoid.flatten(), bins=50)
 plt.title("Sigmoid Probability Distribution")

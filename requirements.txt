@@ -3,10 +3,11 @@ openpyxl
 xlrd
 numpy
 regex
-transformers==4.44.2
+transformers
 sentence-transformers==3.0.1
-torch>=2.2.0
+torch
 keybert==0.8.5
 scikit-learn>=1.3.0
 unidecode
 matplotlib
+accelerate>=0.26.0
