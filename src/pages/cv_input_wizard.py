@@ -79,26 +79,27 @@ def step_education():
         dep_opts = DEPARTMENTS.get(university, ["— Seçiniz —"])
         department = st.selectbox("Bölüm", dep_opts, key="edu_dep")
 
+    # Tüm alanlar doluysa ileri aktif
     valid = (level and level != "— Seçiniz —" and
              university and university != "— Seçiniz —" and
              department and department != "— Seçiniz —")
 
     st.markdown("---")
-    cols = st.columns([1,1,6,1])
+    cols = st.columns([1, 1, 6, 1])
     with cols[0]:
-        back_disabled = True
-        st.button("⬅️ Geri", disabled=back_disabled)
-    with cols[1]:
-        if st.button("💾 Kaydet"):
-            if valid:
-                st.session_state["education"] = {
-                    "level": level, "university": university, "department": department
-                }
-                st.success("Eğitim bilgileri kaydedildi.")
-            else:
-                st.error("Lütfen tüm alanları seçiniz.")
+        st.button("⬅️ Geri", disabled=True)
     with cols[3]:
-        st.button("➡️ İleri", disabled=not valid, on_click=lambda: _go(2))
+        st.button("➡️ İleri", disabled=not valid, on_click=lambda: save_and_next(level, university, department))
+
+
+def save_and_next(level, university, department):
+    """İleri tıklanınca eğitim bilgisini kaydedip sonraki adıma geç."""
+    st.session_state["education"] = {
+        "level": level,
+        "university": university,
+        "department": department
+    }
+    _go(2)
 
 # ---------- Adım 2: Deneyimler ----------
 def step_experiences():
@@ -143,12 +144,23 @@ def step_experiences():
                     st.session_state["rerun"] = True
 
     st.markdown("---")
-    cols = st.columns([1,1,6,1])
+    
+    # 🔹 Geri butonu artık eğitim alanlarını dolduruyor
+    cols = st.columns([1, 1, 6, 1])
     with cols[0]:
-        st.button("⬅️ Geri", on_click=lambda: _go(1))
+        st.button("⬅️ Geri", on_click=go_back_to_education)
     with cols[3]:
         st.button("➡️ İleri", disabled=len(st.session_state["experiences"]) == 0, on_click=lambda: _go(3))
 
+
+def go_back_to_education():
+    """Eğitim adımına dönmeden önce form alanlarını eski değerlerle doldur."""
+    edu = st.session_state.get("education", {})
+    st.session_state["edu_level"] = edu.get("level", "— Seçiniz —")
+    st.session_state["edu_uni"] = edu.get("university", "— Seçiniz —")
+    st.session_state["edu_dep"] = edu.get("department", "— Seçiniz —")
+    _go(1)
+ 
 # ---------- Adım 3: Skiller ----------
 def step_skills():
     st.header("🧠 Adım 3: Yetenekler (Skills)")
@@ -298,10 +310,14 @@ def step_projects():
 
 # ---------- Adım 7: Özet ve Kaydet ----------
 def step_summary():
-    st.header("✅ Özet")
-    st.write("Aşağıdaki bilgiler kaydedilecek:")
+    st.header("✅ CV Özeti")
+
+    user_id = st.session_state["user_id"]
+    cv_id = f"cv_{user_id}"
 
     data = {
+        "user_id": user_id,
+        "cv_id": cv_id, 
         "education": st.session_state["education"],
         "experiences": st.session_state["experiences"],
         "skills": st.session_state["skills"],
@@ -309,17 +325,71 @@ def step_summary():
         "certificates": st.session_state["certificates"],
         "projects": st.session_state["projects"],
     }
-    st.json(data)
 
-    cols = st.columns([1,1,6,2])
+    # Kullanıcı dostu gösterim
+    st.markdown("### 🎓 Eğitim")
+    ed = data["education"]
+    st.write(f"**{ed['level']}** – {ed['university']} / {ed['department']}")
+
+    st.markdown("### 💼 Deneyimler")
+    if data["experiences"]:
+        for e in data["experiences"]:
+            st.markdown(f"- **{e['company']}** | {e['role']} ({e['years']})")
+    else:
+        st.write("_Deneyim eklenmedi._")
+
+    st.markdown("### 🧠 Skiller")
+    st.markdown(", ".join(data["skills"]) if data["skills"] else "_Henüz skill eklenmedi._")
+
+    st.markdown("### 🌍 Diller")
+    st.markdown(", ".join(data["languages"]) if data["languages"] else "_Henüz dil eklenmedi._")
+
+    st.markdown("### 📜 Sertifikalar")
+    if data["certificates"]:
+        for c in data["certificates"]:
+            st.markdown(f"- {c}")
+    else:
+        st.write("_Henüz sertifika eklenmedi._")
+
+    st.markdown("### 🚀 Projeler")
+    if data["projects"]:
+        for p in data["projects"]:
+            st.markdown(f"**{p['title']}** — {p['description']}")
+    else:
+        st.write("_Henüz proje eklenmedi._")
+
+    st.markdown("---")
+    cols = st.columns([1, 6, 1])
     with cols[0]:
         st.button("⬅️ Geri", on_click=lambda: _go(6))
-    with cols[3]:
-        if st.button("💾 Kaydet (JSON)"):
-            Path("outputs").mkdir(exist_ok=True)
-            out_path = Path("outputs/user_cv_input.json")
-            out_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
-            st.success(f"Dosya kaydedildi: {out_path}")
+    with cols[2]:
+        if st.button("💾 Kaydet"):
+            save_cv_data(data)
+
+
+def save_cv_data(new_entry):
+    """Girilen CV verilerini dataset/cv-dataset.json dosyasına kaydeder."""
+    path = Path("dataset/cv-dataset.json")
+    path.parent.mkdir(exist_ok=True)
+
+    # Eğer dosya varsa mevcut verileri oku
+    if path.exists():
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                existing = json.load(f)
+        except json.JSONDecodeError:
+            existing = []
+    else:
+        existing = []
+
+    # Yeni kayıt ekle
+    existing.append(new_entry)
+
+    # JSON’a yaz
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(existing, f, ensure_ascii=False, indent=2)
+
+    st.success("✅ CV bilgileri başarıyla kaydedildi (dataset/cv-dataset.json)")
 
 # ---------- Navigation ----------
 def _go(step_no: int):

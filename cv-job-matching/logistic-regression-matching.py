@@ -7,10 +7,10 @@ from sklearn.pipeline import Pipeline
 import numpy as np
 
 # --- 1. Veri setlerini yükle ---
-with open("dataset/cv-dataset.json", "r", encoding="utf-8") as f:
+with open("../dataset/resumes/cv-dataset-all.json", "r", encoding="utf-8") as f:
     cvs = json.load(f)
 
-with open("dataset/job-skills-dataset.json", "r", encoding="utf-8") as f:
+with open("../dataset/job-postings/job-skills-all.json", "r", encoding="utf-8") as f:
     jobs = json.load(f)
 
 # --- 2. Yardımcı fonksiyon: Özellik çıkarımı ---
@@ -132,7 +132,7 @@ else:
 # --- 10. Kişisel Gelişim / Yol Haritası Katmanı ---
 
 # skill-resources.json dosyasını yükle
-with open("dataset/skill-resources.json", "r", encoding="utf-8") as f:
+with open("../dataset/skill-resources.json", "r", encoding="utf-8") as f:
     skill_resources = json.load(f)
 
 print("\n🧭 Kişisel Gelişim Yol Haritası:\n")
@@ -175,3 +175,11 @@ for entry in career_roadmap:
 # (Opsiyonel) JSON olarak kaydetmek istersen:
 # with open("career-roadmap.json", "w", encoding="utf-8") as f:
 #     json.dump(career_roadmap, f, ensure_ascii=False, indent=2)
+
+
+
+import joblib
+
+# Modeli ve scaler pipeline'ı kaydet
+joblib.dump(pipe, "models/logistic_regression_model.pkl")
+print("💾 Model kaydedildi: models/logistic_regression_model.pkl")

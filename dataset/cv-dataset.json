@@ -1,0 +1,59 @@
+[
+  {
+    "user_id": 1,
+    "cv_id": "cv_1",
+    "education": {
+      "level": "Lisans",
+      "university": "Boğaziçi",
+      "department": "YBS"
+    },
+    "experiences": [
+      {
+        "company": "aaa",
+        "years": "0-1 yıl",
+        "role": "Data Analyst"
+      },
+      {
+        "company": "sss",
+        "years": "3-5 yıl",
+        "role": "Software Developer"
+      }
+    ],
+    "skills": [
+        "javascript",
+        "sql server",
+        "database",
+        "hibernate",
+        "java",
+        "oracle",
+        "react",
+        "sql",
+        "performance",
+        "teamwork"
+    ],
+    "languages": [
+      "İngilizce",
+      "Almanca",
+      "Türkçe"
+    ],
+    "certificates": [
+      "asdasdas",
+      "asdasd",
+      "ad"
+    ],
+    "projects": [
+      {
+        "title": "aaa",
+        "description": "aaaa"
+      },
+      {
+        "title": "sss",
+        "description": "ssss"
+      },
+      {
+        "title": "ddd",
+        "description": "dddd"
+      }
+    ]
+  }
+]
