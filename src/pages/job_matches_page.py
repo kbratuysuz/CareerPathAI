@@ -1,90 +1,102 @@
 import streamlit as st
 import json
-import random
-from pathlib import Path
 import joblib
 import pandas as pd
+from pathlib import Path
 from pages.model_features import build_features_for_match
 
+# --- Dosya yolları ---
+JOB_POSTINGS_PATH = Path("dataset/job-postings/job-posting-dataset-all.json")
+JOB_SKILLS_PATH = Path("dataset/job-postings/job-skills-all.json")
+CV_DATA_PATH = Path("dataset/cv-dataset.json")
 MODEL_PATH = Path("cv-job-matching/models/logistic_regression_model.pkl")
+
+# --- Model yükleme ---
 pipe = joblib.load(MODEL_PATH)
 
-JOB_FILE = Path("dataset/job-postings/job-posting-dataset-all.json")
-CV_FILE = Path("dataset/cv-dataset.json")
 
-def load_jobs():
-    if JOB_FILE.exists():
+# === Yardımcı Fonksiyonlar ===
+def load_json(path):
+    if path.exists():
         try:
-            with open(JOB_FILE, "r", encoding="utf-8") as f:
+            with open(path, "r", encoding="utf-8") as f:
                 return json.load(f)
         except json.JSONDecodeError:
             return []
     return []
 
-def load_user_cv(email):
-    if CV_FILE.exists():
-        with open(CV_FILE, "r", encoding="utf-8") as f:
-            try:
-                data = json.load(f)
-                for cv in data:
-                    if cv.get("email") == email:
-                        return cv
-            except json.JSONDecodeError:
-                pass
-    return None
 
-def calculate_match_score(cv, job):
-    """Gerçek model skorunu hesapla."""
-    if not cv or not job:
-        return 0
+def load_user_cv(user_id):
+    cvs = load_json(CV_DATA_PATH)
+    return next((cv for cv in cvs if cv.get("user_id") == user_id), None)
 
-    # Model giriş özelliklerini oluştur
-    job_skills = job.get("skills", [])
+
+def get_job_skills(job_id):
+    job_skills_data = load_json(JOB_SKILLS_PATH)
+    entry = next((j for j in job_skills_data if j.get("job_id") == job_id), None)
+    return entry.get("skills", []) if entry else []
+
+
+def calculate_match_score(cv, job_id):
+    """Model üzerinden gerçek uyum oranını hesapla."""
+    if not cv:
+        return 0.0
+
+    job_skills = get_job_skills(job_id)
     cv_skills = cv.get("skills", [])
 
     if not job_skills or not cv_skills:
-        return 0
+        return 0.0
 
     X = build_features_for_match(cv_skills, job_skills)
-    score = pipe.predict_proba(X)[:, 1]  # 0->negatif, 1->pozitif olasılık
-    return round(score * 100, 1)  # yüzde
+    score = pipe.predict_proba(X)[0][1]  # pozitif sınıf olasılığı
+    return round(score * 100, 1)
 
+
+# === Ana Fonksiyon ===
 def job_matches_page():
     st.title("💼 İş Eşleşmeleri")
 
-    user = st.session_state.get("user", {})
+    user = st.session_state.get("user")
     if not user:
         st.error("Giriş yapılmadı.")
         st.stop()
 
-    email = user.get("email")
-    user_cv = load_user_cv(email)
+    user_id = user.get("id")
+    cv = load_user_cv(user_id)
+    if not cv:
+        st.warning("CV veriniz bulunamadı. Önce CV bilgilerinizi ekleyin.")
+        if st.button("📄 CV Ekle"):
+            st.session_state["page"] = "cv_input"
+            st.rerun()
+        return
 
-    jobs = load_jobs()
-    if not jobs:
+    job_postings = load_json(JOB_POSTINGS_PATH)
+    if not job_postings:
         st.warning("İş ilanı verisi bulunamadı.")
         return
 
     # Sayfalama
     jobs_per_page = 10
-    total_pages = (len(jobs) + jobs_per_page - 1) // jobs_per_page
+    total_pages = (len(job_postings) + jobs_per_page - 1) // jobs_per_page
     page_num = st.session_state.get("job_page", 1)
 
     start = (page_num - 1) * jobs_per_page
     end = start + jobs_per_page
-    current_jobs = jobs[start:end]
+    current_jobs = job_postings[start:end]
 
-    # Listeleme
+    # === Listeleme ===
     for job in current_jobs:
         job_id = job.get("job_id", "N/A")
-        title = job.get("job_title_clean", "Bilinmeyen Pozisyon")
-        company = f"{job_id} Şirketi"
-        match = calculate_match_score(user_cv, job)
+        title = job.get("job_title_clean", "Bilinmeyen Pozisyon").title()
+        location = job.get("location_clean", "Belirtilmemiş")
+
+        match = calculate_match_score(cv, job_id)
 
         st.markdown(f"### {title}")
-        st.write(company)
-        st.progress(match / 100)
-        st.caption(f"🔍 Uyum Oranı: **%{match}**")
+        st.write(f"{job_id} Şirketi • 📍 {location}")
+        st.progress(match / 100 if match > 0 else 0.001)
+        st.caption(f"🔍 Uyum Oranı: **%{match:.1f}**")
 
         if st.button("📄 Detay", key=f"detail_{job_id}"):
             st.session_state["selected_job"] = job
@@ -93,13 +105,13 @@ def job_matches_page():
 
         st.markdown("---")
 
-    # Sayfa kontrol butonları
-    cols = st.columns(3)
-    with cols[0]:
+    # === Sayfa kontrol butonları ===
+    col1, col2, col3 = st.columns(3)
+    with col1:
         if st.button("⬅️ Önceki", disabled=(page_num == 1)):
             st.session_state["job_page"] = page_num - 1
             st.rerun()
-    with cols[2]:
+    with col3:
         if st.button("Sonraki ➡️", disabled=(page_num == total_pages)):
             st.session_state["job_page"] = page_num + 1
             st.rerun()
