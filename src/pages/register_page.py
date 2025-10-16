@@ -20,7 +20,6 @@ def save_users(users):
         json.dump(users, f, ensure_ascii=False, indent=2)
 
 def validate_email(email):
-    """Basit e-posta format kontrolü"""
     pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
     return re.match(pattern, email) is not None
 

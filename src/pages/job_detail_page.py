@@ -4,13 +4,11 @@ import joblib
 import pandas as pd
 from pathlib import Path
 
-# --- Dosya yolları ---
 MODEL_PATH = Path("cv-job-matching/models/logistic_regression_model.pkl")
 CV_DATA_PATH = Path("dataset/cv-dataset.json")
 JOB_SKILLS_PATH = Path("dataset/job-postings/job-skills-all.json")
 SKILL_RESOURCES_PATH = Path("dataset/skill-resources.json")
 
-# --- Model ve veri yükleme ---
 pipe = joblib.load(MODEL_PATH)
 
 with open(SKILL_RESOURCES_PATH, "r", encoding="utf-8") as f:
@@ -22,7 +20,6 @@ with open(JOB_SKILLS_PATH, "r", encoding="utf-8") as f:
 with open(CV_DATA_PATH, "r", encoding="utf-8") as f:
     all_cvs = json.load(f)
 
-# --- Özellik oluşturma (modelden kopya alınan) ---
 def build_features(cv_skills, job_skills_with_scores):
     cv_skills = set([s.lower() for s in cv_skills])
     job_skills = set([j["skill"].lower() for j in job_skills_with_scores])
@@ -76,7 +73,6 @@ def job_detail_page():
     st.write(description)
     st.markdown("---")
 
-    # --- CV ve Job eşleşmesi ---
     user = st.session_state.get("user")
     user_id = user.get("id")
     cv = next((c for c in all_cvs if c.get("user_id") == user_id), None)
@@ -104,7 +100,6 @@ def job_detail_page():
     st.progress(base_score)
     st.markdown("---")
 
-    # --- Uyuşan ve Eksik Yetenekler ---
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("### ✅ Uyuşan Yetenekler")
@@ -124,7 +119,6 @@ def job_detail_page():
 
     st.markdown("---")
 
-    # --- Eksik yeteneklerin katkı analizi ---
     if total_effect > 0 and missing_skills:
         total_missing_score = sum(missing_skills.values()) or 1e-6
         weighted_results = []
@@ -147,7 +141,6 @@ def job_detail_page():
         st.markdown("---")
         st.subheader("🧭 Gelişim Yol Haritası")
 
-        # CSS tasarımı
         st.markdown("""
         <style>
         .roadmap-container {
@@ -205,7 +198,6 @@ def job_detail_page():
         </style>
         """, unsafe_allow_html=True)
 
-        # HTML render
         roadmap_html = '<div class="roadmap-container">'
         for _, row in df.iterrows():
             skill_name = row["skill"].lower()

@@ -8,7 +8,6 @@ from pages.job_detail_page import job_detail_page
 
 st.set_page_config(page_title="CareerPathAI", layout="wide")
 
-# ---------- Ana Sayfa ----------
 def home_page():
     st.title("💼 CareerPathAI")
     st.markdown("### Yapay Zeka Destekli Kariyer Uyumluluk ve Gelişim Analiz Sistemi")
@@ -37,7 +36,6 @@ def home_page():
         st.session_state["page"] = "login"
         st.experimental_rerun()
 
-# ---------- Sayfa Yönlendirme ----------
 if "page" not in st.session_state:
     st.session_state["page"] = "login"
 

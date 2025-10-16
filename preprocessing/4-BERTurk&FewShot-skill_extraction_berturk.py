@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import json
 import os
 import re
@@ -38,7 +35,6 @@ DOMAIN_SEED_SKILLS = [
     "dotnet", "dotnet core", "angularjs", "sql server", "mlops"
 ]
 
-# Few-shot examples: (job_description, expected_skills)
 FEW_SHOT_EXAMPLES = [
     (
         "java spring boot microservice geliştirme deneyimi aranıyor. mssql veritabanı ve rest api bilgisi gerekli.",
@@ -125,7 +121,6 @@ def _candidate_aliases(skill: str) -> List[str]:
     name = skill.strip().lower()
     aliases: List[str] = [name]
     
-    # Common variants
     if name == ".net":
         aliases += ["dotnet", "net"]
     elif name == ".net core" or name == "dotnet core":
@@ -147,7 +142,6 @@ def _candidate_aliases(skill: str) -> List[str]:
 
 
 def keyword_match_candidates(text: str, candidate_skills: List[str]) -> List[str]:
-    """Return candidate names that lexically appear (by alias) in normalized text."""
     text_lc = normalize_text(text)
     matches: List[str] = []
     seen = set()
@@ -181,7 +175,6 @@ def zero_shot_score_skills(
     
     normalized = normalize_text(text)
     
-    # Deduplicate and filter stopwords
     seen = set()
     filtered_candidates: List[str] = []
     for c in candidate_skills:
@@ -198,20 +191,16 @@ def zero_shot_score_skills(
     if not filtered_candidates:
         return []
     
-    # Get embeddings and compute similarities
     text_emb = embedder.embed_texts([normalized])
     cand_embs = embedder.embed_texts(filtered_candidates)
     sims = cosine_similarity_matrix(text_emb, cand_embs)[0]
     
-    # Map cosine [-1, 1] to [0, 1]
     scores = (sims + 1.0) / 2.0
     ranked = sorted(zip(filtered_candidates, scores.tolist()), key=lambda x: x[1], reverse=True)
     
-    # Intersect with keyword matches in the text
     matched = set(k.lower() for k in keyword_match_candidates(text, [n for n, _ in ranked]))
     intersected = [(n, s) for n, s in ranked if n.lower() in matched]
     
-    # Filter by minimum score
     filtered = [(n, s) for n, s in intersected if s >= min_score]
     top = filtered[: top_n if top_n is not None else len(filtered)]
     
@@ -227,17 +216,12 @@ def few_shot_score_skills(
     min_score: float = 0.0,
     few_shot_weight: float = 0.3,
 ) -> List[Dict[str, Any]]:
-    """
-    Combine zero-shot with few-shot learning using example-based scoring.
-    """
     if not text:
         return []
     
-    # Get zero-shot scores
     zero_shot_results = zero_shot_score_skills(embedder, text, candidate_skills, top_n=len(candidate_skills), min_score=0.0)
     zero_shot_scores = {item["skill"]: item["score"] for item in zero_shot_results}
     
-    # Compute few-shot scores based on example similarity
     normalized_text = normalize_text(text)
     text_emb = embedder.embed_texts([normalized_text])
     
@@ -246,21 +230,18 @@ def few_shot_score_skills(
         example_emb = embedder.embed_texts([normalize_text(example_text)])
         similarity = cosine_similarity_matrix(text_emb, example_emb)[0][0]
         
-        # Boost scores for skills that appear in similar examples
         for skill in example_skills:
             if skill.lower() in [s.lower() for s in candidate_skills]:
                 if skill not in few_shot_scores:
                     few_shot_scores[skill] = 0.0
                 few_shot_scores[skill] += similarity * few_shot_weight
     
-    # Combine zero-shot and few-shot scores
     combined_scores = {}
     for skill in candidate_skills:
         zero_score = zero_shot_scores.get(skill, 0.0)
         few_score = few_shot_scores.get(skill, 0.0)
         combined_scores[skill] = min(1.0, zero_score + few_score)
     
-    # Sort and filter results
     ranked = sorted(combined_scores.items(), key=lambda x: x[1], reverse=True)
     filtered = [(skill, score) for skill, score in ranked if score >= min_score]
     top = filtered[:top_n]
@@ -332,7 +313,6 @@ def main():
     
     model_name = "dbmdz/bert-base-turkish-cased"
     
-    # Use few-shot learning by default
     process_postings(
         input_path, 
         output_path, 

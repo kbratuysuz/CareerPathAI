@@ -2,34 +2,17 @@ import streamlit as st
 import json
 from pathlib import Path
 
-# ---------- Sabit Listeler ----------
-# Eğitim - Üniversite - Bölüm (örnek; istersen JSON'dan da okuyabiliriz)
+from utils import get_roles_from_datasets, get_university_department_map
+
 EDU_LEVELS = ["— Seçiniz —", "Ön Lisans (MYO)", "Lisans", "Yüksek Lisans", "Doktora"]
-UNIVERSITIES = {
-    "Ön Lisans (MYO)": ["— Seçiniz —", "Anadolu Üniversitesi", "Ege Üniversitesi", "İstanbul Üniversitesi"],
-    "Lisans":           ["— Seçiniz —", "ODTÜ", "Boğaziçi", "İTÜ", "Ankara Üniversitesi"],
-    "Yüksek Lisans":    ["— Seçiniz —", "İTÜ", "Koç Üniversitesi", "Sabancı Üniversitesi"],
-    "Doktora":          ["— Seçiniz —", "ODTÜ", "Boğaziçi", "Koç Üniversitesi"],
-}
-DEPARTMENTS = {
-    "ODTÜ": ["— Seçiniz —", "Bilgisayar Mühendisliği", "Endüstri Müh.", "Yapay Zeka"],
-    "Boğaziçi": ["— Seçiniz —", "YBS", "Matematik", "Fizik"],
-    "İTÜ": ["— Seçiniz —", "Bilgisayar Müh.", "Elektronik", "Makine"],
-    "Anadolu Üniversitesi": ["— Seçiniz —", "Bilgisayar Programcılığı", "İşletme"],
-}
-
-# Deneyim alanı listeleri
 YEAR_RANGES = ["— Seçiniz —", "0-1 yıl", "1-3 yıl", "3-5 yıl", "5+ yıl"]
-
-# TODO: Burayı senin gönderdiğin rol listesiyle değiştir.
-ROLES = ["— Seçiniz —",
-         "Software Developer", "Data Analyst", "Project Manager",
-         "System Administrator", "Network Engineer", "AI Engineer"]
-
-# Yabancı diller
 LANGUAGES = ["— Seçiniz —", "İngilizce", "Almanca", "Fransızca", "İspanyolca", "Türkçe", "Rusça"]
+ROLES = ["— Seçiniz —"] + get_roles_from_datasets()
 
-# Skill’leri dataset dosyasından çek
+uni_dept_map = get_university_department_map()
+UNIVERSITIES = ["— Seçiniz —"] + sorted(list(uni_dept_map.keys()))
+DEPARTMENTS = ["— Seçiniz —"] + sorted(list(set(dept for depts in uni_dept_map.values() for dept in depts)))
+
 def load_skills():
     p = Path("dataset/skill-list-all.json")
     if p.exists():
@@ -40,10 +23,9 @@ def load_skills():
 
 ALL_SKILLS = load_skills()
 
-# ---------- Yardımcılar ----------
 def _init_state():
     ss = st.session_state
-    ss.setdefault("step", 1)  # 1: Eğitim, 2: Deneyim, 3: Skiller, 4: Diller, 5: Sertifikalar, 6: Projeler, 7: Özet
+    ss.setdefault("step", 1) 
     ss.setdefault("education", {"level": None, "university": None, "department": None})
     ss.setdefault("experiences", [])
     ss.setdefault("skills", [])
@@ -65,7 +47,6 @@ def _delete_button(label, key, on_click):
         if st.button(label, key=key):
             on_click()
 
-# ---------- Adım 1: Eğitim ----------
 def step_education():
     st.header("🎓 Adım 1: Eğitim Bilgileri")
     col1, col2, col3 = st.columns(3)
@@ -73,13 +54,10 @@ def step_education():
     with col1:
         level = st.selectbox("Son Eğitim Seviyesi", EDU_LEVELS, key="edu_level")
     with col2:
-        uni_opts = UNIVERSITIES.get(level, ["— Seçiniz —"])
-        university = st.selectbox("Üniversite", uni_opts, key="edu_uni")
+        university = st.selectbox("Üniversite", UNIVERSITIES, key="edu_uni")
     with col3:
-        dep_opts = DEPARTMENTS.get(university, ["— Seçiniz —"])
-        department = st.selectbox("Bölüm", dep_opts, key="edu_dep")
+        department = st.selectbox("Bölüm", DEPARTMENTS, key="edu_dep")
 
-    # Tüm alanlar doluysa ileri aktif
     valid = (level and level != "— Seçiniz —" and
              university and university != "— Seçiniz —" and
              department and department != "— Seçiniz —")
@@ -93,7 +71,6 @@ def step_education():
 
 
 def save_and_next(level, university, department):
-    """İleri tıklanınca eğitim bilgisini kaydedip sonraki adıma geç."""
     st.session_state["education"] = {
         "level": level,
         "university": university,
@@ -101,7 +78,6 @@ def save_and_next(level, university, department):
     }
     _go(2)
 
-# ---------- Adım 2: Deneyimler ----------
 def step_experiences():
     st.header("💼 Adım 2: İş Deneyimleri")
     c1, c2, c3 = st.columns([3,2,2])
@@ -117,21 +93,19 @@ def step_experiences():
             st.warning("Tüm deneyim alanlarını doldurun.")
             return
         item = {"company": company.strip(), "years": years, "role": role}
-        # duplicate kontrol (company + role)
         key = (_norm(item["company"]), _norm(item["role"]))
         existing = {(_norm(x["company"]), _norm(x["role"])) for x in st.session_state["experiences"]}
         if key in existing:
             st.info("Bu şirket ve rol için deneyim zaten ekli.")
             return
         st.session_state["experiences"].append(item)
-        # alanları sıfırla
+
         st.session_state["exp_company"] = ""
         st.session_state["exp_years"] = YEAR_RANGES[0]
         st.session_state["exp_role"] = ROLES[0]
 
     st.button("➕ Deneyim Ekle", on_click=add_exp)
 
-    # Liste ve silme
     if st.session_state["experiences"]:
         st.subheader("Eklenen Deneyimler")
         for i, exp in enumerate(st.session_state["experiences"]):
@@ -145,7 +119,6 @@ def step_experiences():
 
     st.markdown("---")
     
-    # 🔹 Geri butonu artık eğitim alanlarını dolduruyor
     cols = st.columns([1, 1, 6, 1])
     with cols[0]:
         st.button("⬅️ Geri", on_click=go_back_to_education)
@@ -161,7 +134,6 @@ def go_back_to_education():
     st.session_state["edu_dep"] = edu.get("department", "— Seçiniz —")
     _go(1)
  
-# ---------- Adım 3: Skiller ----------
 def step_skills():
     st.header("🧠 Adım 3: Yetenekler (Skills)")
     skill = st.selectbox("Bir Skill Seç", ALL_SKILLS, key="skill_pick")
@@ -196,7 +168,6 @@ def step_skills():
     with cols[3]:
         st.button("➡️ İleri", disabled=len(st.session_state["skills"]) == 0, on_click=lambda: _go(4))
 
-# ---------- Adım 4: Diller ----------
 def step_languages():
     st.header("🌍 Adım 4: Yabancı Diller")
     lang = st.selectbox("Bir Dil Seç", LANGUAGES, key="lang_pick")
@@ -231,7 +202,6 @@ def step_languages():
     with cols[3]:
         st.button("➡️ İleri", disabled=len(st.session_state["languages"]) == 0, on_click=lambda: _go(5))
 
-# ---------- Adım 5: Sertifikalar ----------
 def step_certificates():
     st.header("📜 Adım 5: Sertifikalar")
     cert = st.text_input("Sertifika Adı", key="cert_input")
@@ -267,7 +237,6 @@ def step_certificates():
     with cols[3]:
         st.button("➡️ İleri", disabled=len(st.session_state["certificates"]) == 0, on_click=lambda: _go(6))
 
-# ---------- Adım 6: Projeler ----------
 def step_projects():
     st.header("🚀 Adım 6: Projeler")
     title = st.text_input("Proje Başlığı", key="proj_title")
@@ -279,7 +248,7 @@ def step_projects():
         if not t or not d:
             st.warning("Başlık ve açıklamayı doldurun.")
             return
-        # duplicate: aynı başlık
+
         exists = {_norm(p["title"]) for p in st.session_state["projects"]}
         if _norm(t) in exists:
             st.info("Bu proje başlığı zaten ekli.")
@@ -308,7 +277,6 @@ def step_projects():
     with cols[3]:
         st.button("➡️ Özet", disabled=len(st.session_state["projects"]) == 0, on_click=lambda: _go(7))
 
-# ---------- Adım 7: Özet ve Kaydet ----------
 def step_summary():
     st.header("✅ CV Özeti")
 
@@ -326,7 +294,6 @@ def step_summary():
         "projects": st.session_state["projects"],
     }
 
-    # Kullanıcı dostu gösterim
     st.markdown("### 🎓 Eğitim")
     ed = data["education"]
     st.write(f"**{ed['level']}** – {ed['university']} / {ed['department']}")
@@ -372,7 +339,6 @@ def save_cv_data(new_entry):
     path = Path("dataset/cv-dataset.json")
     path.parent.mkdir(exist_ok=True)
 
-    # Eğer dosya varsa mevcut verileri oku
     if path.exists():
         try:
             with open(path, "r", encoding="utf-8") as f:
@@ -382,16 +348,13 @@ def save_cv_data(new_entry):
     else:
         existing = []
 
-    # Yeni kayıt ekle
     existing.append(new_entry)
 
-    # JSON’a yaz
     with open(path, "w", encoding="utf-8") as f:
         json.dump(existing, f, ensure_ascii=False, indent=2)
 
     st.success("✅ CV bilgileri başarıyla kaydedildi (dataset/cv-dataset.json)")
 
-# ---------- Navigation ----------
 def _go(step_no: int):
     st.session_state["step"] = step_no
 
@@ -405,7 +368,6 @@ def _stepper_ui():
     )
     st.markdown("---")
 
-# ---------- Entry ----------
 def cv_input_wizard():
     _init_state()
     _stepper_ui()

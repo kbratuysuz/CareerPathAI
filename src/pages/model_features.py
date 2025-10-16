@@ -1,7 +1,6 @@
 import pandas as pd
 
 def build_features_for_match(cv_skills, job_skills):
-    """logistic_regression_matching.py'deki build_features fonksiyonunun aynısı."""
     cv_skills = set([s.lower() for s in cv_skills])
     job_skills = set([j["skill"].lower() for j in job_skills])
 

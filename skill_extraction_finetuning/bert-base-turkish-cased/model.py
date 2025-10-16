@@ -1,4 +1,3 @@
-# job-posting-dataset.json + gazetteer çıktısını birleştirir
 import json
 import pandas as pd
 
@@ -11,17 +10,14 @@ with open("weak_labels.json", "r", encoding="utf-8") as f:
 data = [{"job_id": jid, "text": jobs[jid], "labels": labels.get(jid, [])} for jid in jobs]
 df = pd.DataFrame(data)
 
-# unique skill list
 all_skills = sorted({s for v in labels.values() for s in v})
 print(len(all_skills), "unique skills")
 
-# encode labels step
 from sklearn.preprocessing import MultiLabelBinarizer
 
 mlb = MultiLabelBinarizer(classes=all_skills)
 y = mlb.fit_transform(df["labels"])
 
-# model selection step
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 model_name = "dbmdz/bert-base-turkish-cased"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
@@ -31,7 +27,6 @@ model = AutoModelForSequenceClassification.from_pretrained(
     problem_type="multi_label_classification"
 )
 
-# preparing dataset step
 import torch
 from torch.utils.data import Dataset
 
@@ -57,7 +52,6 @@ class JobPostingDataset(Dataset):
         item["labels"] = torch.tensor(self.labels[idx], dtype=torch.float)
         return item
 
-# fine-tuning step
 from transformers import Trainer, TrainingArguments
 import torch
 import numpy as np
@@ -84,26 +78,22 @@ trainer = Trainer(
 
 trainer.train()
 
-# evaluate step
 preds = trainer.predict(train_dataset).predictions
 sigmoid = 1 / (1 + np.exp(-preds))
 pred_labels = (sigmoid >= 0.1).astype(int)
 
-# Örnek: İlan bazında skill tahmini
 for idx in range(10):
     job_id = df.loc[idx, "job_id"]
     skills = mlb.classes_
     probs = sigmoid[idx]
 
-    # tahmin edilen skiller
     predicted_skills = mlb.inverse_transform(pred_labels[[idx]])[0]
 
-    # sadece tahmin edilen skillerin skorlarını al
     skill_scores = {skills[i]: round(probs[i], 3) for i in np.where(pred_labels[idx] == 1)[0]}
 
-    print(f"\n🧩 Job ID: {job_id}")
-    print(f"🎯 Predicted Skills: {predicted_skills}")
-    print(f"📊 Sigmoid Scores: {skill_scores}")
+    print(f"\nJob ID: {job_id}")
+    print(f"Predicted Skills: {predicted_skills}")
+    print(f"Sigmoid Scores: {skill_scores}")
 
 import matplotlib.pyplot as plt
 

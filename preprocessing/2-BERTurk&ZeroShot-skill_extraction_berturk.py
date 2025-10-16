@@ -10,7 +10,6 @@ from unidecode import unidecode
 
 TURKISH_STOPWORDS = set(
     [
-        # Common Turkish stopwords and noisy tokens often seen in postings
         "ve",
         "veya",
         "ile",
@@ -87,7 +86,6 @@ DOMAIN_SEED_SKILLS = [
     "angularjs", "mysql", "postgresql", "sql server", "mlops"
 ]
 
-
 def load_job_postings(json_path: str, limit: Optional[int] = None) -> List[Dict[str, Any]]:
     with open(json_path, "r", encoding="utf-8") as f:
         data = json.load(f)
@@ -95,21 +93,16 @@ def load_job_postings(json_path: str, limit: Optional[int] = None) -> List[Dict[
         data = data[:limit]
     return data
 
-
 def normalize_text(text: str) -> str:
     if not text:
         return ""
-    # Keep diacritics for Turkish model; create a secondary ascii form for filtering if needed
-    # Here we only lowercase and strip extra spaces.
     return " ".join(text.lower().split())
-
 
 def _mean_pool(last_hidden_state: torch.Tensor, attention_mask: torch.Tensor) -> torch.Tensor:
     mask_expanded = attention_mask.unsqueeze(-1).expand(last_hidden_state.size()).float()
     summed = torch.sum(last_hidden_state * mask_expanded, dim=1)
     counts = torch.clamp(mask_expanded.sum(dim=1), min=1e-9)
     return summed / counts
-
 
 class BerturkEmbedder:
     def __init__(self, model_name: str = "dbmdz/bert-base-turkish-cased", device: Optional[str] = None) -> None:
@@ -141,12 +134,10 @@ class BerturkEmbedder:
             embeddings.append(pooled.detach().cpu().numpy())
         return np.vstack(embeddings) if embeddings else np.zeros((0, self.model.config.hidden_size), dtype=np.float32)
 
-
 def cosine_similarity_matrix(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     a_norm = a / (np.linalg.norm(a, axis=1, keepdims=True) + 1e-9)
     b_norm = b / (np.linalg.norm(b, axis=1, keepdims=True) + 1e-9)
     return np.matmul(a_norm, b_norm.T)
-
 
 def zero_shot_score_skills(
     embedder: BerturkEmbedder,
@@ -158,7 +149,6 @@ def zero_shot_score_skills(
         return []
     normalized = normalize_text(text)
 
-    # Deduplicate and keep order
     seen = set()
     filtered_candidates: List[str] = []
     for c in candidate_skills:
@@ -175,11 +165,10 @@ def zero_shot_score_skills(
     if not filtered_candidates:
         return []
 
-    text_emb = embedder.embed_texts([normalized])  # [1, H]
-    cand_embs = embedder.embed_texts(filtered_candidates)  # [C, H]
-    sims = cosine_similarity_matrix(text_emb, cand_embs)[0]  # [C]
+    text_emb = embedder.embed_texts([normalized])  
+    cand_embs = embedder.embed_texts(filtered_candidates) 
+    sims = cosine_similarity_matrix(text_emb, cand_embs)[0]  
 
-    # Map cosine [-1, 1] to [0, 1]
     scores = (sims + 1.0) / 2.0
     ranked = sorted(zip(filtered_candidates, scores.tolist()), key=lambda x: x[1], reverse=True)
     top = ranked[: top_n if top_n is not None else len(ranked)]

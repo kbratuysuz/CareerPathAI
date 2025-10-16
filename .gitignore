@@ -1,4 +1,6 @@
 .venv/
 .venv/*
 skill_mismatch_finetune/xlm-roberta-base/outputs/*
+src/__pycache__/*
 src/pages/__pycache__/*
+skill_extraction_finetuning/xlm-roberta-base/outputs/*

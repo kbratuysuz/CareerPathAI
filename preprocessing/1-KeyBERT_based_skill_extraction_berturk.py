@@ -10,7 +10,6 @@ from unidecode import unidecode
 
 TURKISH_STOPWORDS = set(
     [
-        # Common Turkish stopwords and noisy tokens often seen in postings
         "ve",
         "veya",
         "ile",
@@ -72,7 +71,6 @@ TURKISH_STOPWORDS = set(
 )
 
 DOMAIN_SEED_SKILLS = [
-    # Software / data common skills for better precision (expand later)
     "python",
     "java",
     "c#",
@@ -129,18 +127,12 @@ def load_job_postings(json_path: str, limit: Optional[int] = None) -> List[Dict[
         data = data[:limit]
     return data
 
-
 def normalize_text(text: str) -> str:
     if not text:
         return ""
-    # Keep diacritics for Turkish model; create a secondary ascii form for filtering if needed
-    # Here we only lowercase and strip extra spaces.
     return " ".join(text.lower().split())
 
-
 def build_kw_model(model_name: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2") -> KeyBERT:
-    # A lightweight multilingual model that works well on Turkish. For BERTürk you can switch to e.g. dbmdz/bert-base-turkish-cased
-    # but KeyBERT needs sentence embeddings; using a SentenceTransformer wrapper is recommended.
     st_model = SentenceTransformer(model_name)
     return KeyBERT(model=st_model)
 
@@ -158,7 +150,6 @@ def extract_skills(
 
     normalized = normalize_text(text)
 
-    # Combine Turkish and English stopwords to filter mixed postings
     stop_words = TURKISH_STOPWORDS.union(ENGLISH_STOP_WORDS)
 
     try:
@@ -176,11 +167,9 @@ def extract_skills(
 
     results: List[Dict[str, Any]] = []
     for kw, score in keywords:
-        # Basic cleanup
         token = kw.strip()
         if not token or token.isdigit():
             continue
-        # Filter obvious non-skill fillers
         if token in stop_words:
             continue
         results.append({"skill": token, "score": float(score)})
@@ -212,8 +201,6 @@ def main():
     input_path = os.path.join(base_dir, "dataset", "job-postings", "job-posting-dataset.json")
     output_path = os.path.join(base_dir, "dataset", "job-postings", "job-posting-skills.json")
 
-    # You can switch to a BERTürk SentenceTransformer, e.g.: "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
-    # Alternatives for Turkish: "paraphrase-multilingual-mpnet-base-v2" or a distilled Turkish model if available.
     model_name = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
     process_postings(input_path, output_path, model_name=model_name)
 

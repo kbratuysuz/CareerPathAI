@@ -10,9 +10,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from rapidfuzz import fuzz
 
 
-CSV_PATH = r"C:/Users/kaksu/source/repos/CareerPathAI/web-scraping/kariyernet_is_ilanlari_URL_listesi.csv"
-OUTPUT_EXCEL_PATH = r"C:/Users/kaksu/source/repos/CareerPathAI/web-scraping/kariyernet_is_ilanlari_detayli.xlsx"
-ERROR_LOG_PATH = r"C:/Users/kaksu/source/repos/CareerPathAI/web-scraping/hatali_kariyernet_linkler.csv"
+CSV_PATH = r"/web-scraping/kariyernet_is_ilanlari_URL_listesi.csv"
+OUTPUT_EXCEL_PATH = r"/web-scraping/kariyernet_is_ilanlari_detayli.xlsx"
+ERROR_LOG_PATH = r"/web-scraping/hatali_kariyernet_linkler.csv"
 
 TEKNOLOJI_KEYWORDS = [
     "teknoloji", "bilgi teknolojileri", "bt", "it", "ict",

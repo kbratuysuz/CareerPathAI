@@ -4,9 +4,7 @@ from pathlib import Path
 
 CV_FILE = Path("dataset/cv-dataset.json")
 
-
 def load_cv_data():
-    """Tüm CV verilerini yükle"""
     if CV_FILE.exists():
         try:
             with open(CV_FILE, "r", encoding="utf-8") as f:
@@ -17,14 +15,12 @@ def load_cv_data():
 
 
 def save_cv_data(data):
-    """Tüm CV verilerini kaydet"""
     CV_FILE.parent.mkdir(exist_ok=True)
     with open(CV_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 
 def get_user_cv(user_email):
-    """Kullanıcıya ait CV verisini bul"""
     data = load_cv_data()
     for cv in data:
         if cv.get("email") == user_email:
