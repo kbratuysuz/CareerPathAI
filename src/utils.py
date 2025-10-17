@@ -1,6 +1,6 @@
 from pathlib import Path
 import json
-from turtle import st
+import streamlit as st
 
 @st.cache_data(show_spinner=False)
 def get_university_department_map():

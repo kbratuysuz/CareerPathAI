@@ -34,8 +34,8 @@ def home_page():
     if st.button("🚪 Çıkış Yap"):
         st.session_state.clear()
         st.session_state["page"] = "login"
-        st.experimental_rerun()
-
+        st.session_state["rerun"] = True
+            
 if "page" not in st.session_state:
     st.session_state["page"] = "login"
 
