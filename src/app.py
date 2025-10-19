@@ -6,7 +6,12 @@ from pages.profile_page import profile_page
 from pages.job_matches_page import job_matches_page
 from pages.job_detail_page import job_detail_page
 
-st.set_page_config(page_title="CareerPathAI", layout="wide")
+st.set_page_config(
+    page_title="CareerPathAI",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    menu_items=None
+)
 
 def home_page():
     st.title("💼 CareerPathAI")

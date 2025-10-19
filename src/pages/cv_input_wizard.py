@@ -1,3 +1,4 @@
+import time
 import streamlit as st
 import json
 from pathlib import Path
@@ -280,7 +281,8 @@ def step_projects():
 def step_summary():
     st.header("✅ CV Özeti")
 
-    user_id = st.session_state["user_id"]
+    user = st.session_state.get("user")
+    user_id = user.get("id")
     cv_id = f"cv_{user_id}"
 
     data = {
@@ -335,10 +337,11 @@ def step_summary():
 
 
 def save_cv_data(new_entry):
-    """Girilen CV verilerini dataset/cv-dataset.json dosyasına kaydeder."""
+    """Girilen CV verilerini dataset/cv-dataset.json dosyasına kaydeder veya günceller."""
     path = Path("dataset/cv-dataset.json")
     path.parent.mkdir(exist_ok=True)
 
+    # Var olan kayıtları oku
     if path.exists():
         try:
             with open(path, "r", encoding="utf-8") as f:
@@ -348,10 +351,24 @@ def save_cv_data(new_entry):
     else:
         existing = []
 
-    existing.append(new_entry)
+    user_id = new_entry.get("user_id")
+    existing_user = next((cv for cv in existing if cv.get("user_id") == user_id), None)
 
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(existing, f, ensure_ascii=False, indent=2)
+    if existing_user:
+        st.warning("⚠️ Bu kullanıcı için kayıt zaten mevcut. Profilim sayfasına yönlendiriliyorsunuz...")
+        time.sleep(1)
+        st.session_state["page"] = "profile"
+        st.rerun()
+    else:
+        # Yeni kayıt ekle
+        existing.append(new_entry)
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(existing, f, ensure_ascii=False, indent=2)
+
+        st.success("✅ CV bilgileri başarıyla kaydedildi. İş eşleşmelerim sayfasına yönlendiriliyorsunuz...")
+        time.sleep(1)
+        st.session_state["page"] = "job_matches"
+        st.rerun()
 
     st.success("✅ CV bilgileri başarıyla kaydedildi (dataset/cv-dataset.json)")
 

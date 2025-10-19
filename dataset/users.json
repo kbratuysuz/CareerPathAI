@@ -19,5 +19,19 @@
     "surname": "Eşkara",
     "email": "busraeskara@mail.com",
     "password": "1234"
+  },
+  {
+    "id": 4,
+    "name": "John",
+    "surname": "Doe",
+    "email": "john@doe.com",
+    "password": "1234"
+  },
+  {
+    "id": 5,
+    "name": "Jane",
+    "surname": "Doe",
+    "email": "jane@doe.com",
+    "password": "1234"
   }
 ]

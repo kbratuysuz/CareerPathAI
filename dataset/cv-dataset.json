@@ -20,16 +20,16 @@
       }
     ],
     "skills": [
-        "javascript",
-        "sql server",
-        "database",
-        "hibernate",
-        "java",
-        "oracle",
-        "react",
-        "sql",
-        "performance",
-        "teamwork"
+      "javascript",
+      "sql server",
+      "database",
+      "hibernate",
+      "java",
+      "oracle",
+      "react",
+      "sql",
+      "performance",
+      "teamwork"
     ],
     "languages": [
       "İngilizce",
@@ -53,6 +53,123 @@
       {
         "title": "ddd",
         "description": "dddd"
+      }
+    ]
+  },
+  {
+    "user_id": 4,
+    "cv_id": "cv_4",
+    "education": {
+      "level": "Yüksek Lisans",
+      "university": "Sabancı Üniversitesi",
+      "department": "Yapay Zeka Mühendisliği"
+    },
+    "experiences": [
+      {
+        "company": "Trendyok Tech",
+        "years": "1-3 yıl",
+        "role": "Jr Data Scientist"
+      },
+      {
+        "company": "Hepsi Burada Tech",
+        "years": "1-3 yıl",
+        "role": "Mid Level Data Scientist"
+      },
+      {
+        "company": "Turkcell Tech",
+        "years": "3-5 yıl",
+        "role": "Senior Data Scientist 694"
+      }
+    ],
+    "skills": [
+      "adaptability",
+      "agile",
+      "ai engineer associate",
+      "analytical thinking",
+      "aws",
+      "api design",
+      "ci cd",
+      "business analytics",
+      "communication",
+      "data",
+      "data modelling",
+      "database",
+      "devops",
+      "deep learning",
+      "git",
+      "keras",
+      "leadership",
+      "responsibility",
+      "teamwork",
+      "python",
+      "machine learning"
+    ],
+    "languages": [
+      "İngilizce",
+      "Türkçe",
+      "Almanca"
+    ],
+    "certificates": [
+      "GYK Yapay Zeka Programı"
+    ],
+    "projects": [
+      {
+        "title": "A Projesi",
+        "description": "açıklama açıklama"
+      },
+      {
+        "title": "B Projesi",
+        "description": "açıklama açıklama"
+      },
+      {
+        "title": "C Projesi",
+        "description": "açıklama açıklama açıklama"
+      },
+      {
+        "title": "D projesi",
+        "description": "açıklama açıklama açıklama\naçıklama açıklama açıklama\naçıklama açıklama"
+      }
+    ]
+  },
+  {
+    "user_id": 5,
+    "cv_id": "cv_5",
+    "education": {
+      "level": "Lisans",
+      "university": "Selçuk Üniversitesi",
+      "department": "Bilgi Teknolojileri"
+    },
+    "experiences": [
+      {
+        "company": "Turkish Technology",
+        "years": "3-5 yıl",
+        "role": "Yazılım Mühendisi"
+      }
+    ],
+    "skills": [
+      "3d modelling",
+      ".net",
+      ".net core"
+    ],
+    "languages": [
+      "Almanca",
+      "İspanyolca"
+    ],
+    "certificates": [
+      "aa"
+    ],
+    "projects": [
+      {
+        "title": "a",
+        "description": "a"
+      },
+      {
+        "title": "s",
+        "description": "s"
+      },
+      {
+        "title": "d",
+        "description": "d"
       }
     ]
   }
